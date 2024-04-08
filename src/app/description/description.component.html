@@ -1,0 +1,108 @@
+<div class="description-page">
+  <div class="topic-name d-flex justify-content-between align-items-center">
+    <div class="topic">
+      <label>Topics</label>
+    </div>
+    <div class="add-topic-btn">
+      <button type="button" class="addMoreBtn btn" (click)="openPopup()">Add Topic</button>
+    </div>
+  </div>
+  <form action="" [formGroup]="addMoreTopicForm">
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Topic</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closePopup()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="login-content">
+              <div class="login-box">
+                <i class="ri-user-3-line login-icon"></i>
+                <div class="login-box-input">
+                  <select name="" id="" formControlName="category">
+                    <option value="">Select Technology</option>
+                    <option value="Angular">Angular</option>
+                    <option value="NodeJs">NodeJs</option>
+                    <option value="ReactJs">ReactJs</option>
+                    <option value="Java">Java</option>
+                    <option value="IOS">IOS</option>
+                    <option value="Android">Android</option>
+                  </select>
+                </div>
+              </div>
+              <div class="login-box">
+                <i class="ri-user-3-line login-icon"></i>
+                <div class="login-box-input">
+                  <input type="text" formControlName="tittle" class="login-input" required placeholder="Tittle">
+                  <!-- <label for="login-name" class="login-label">Name</label> -->
+                </div>
+              </div>
+              <div class="login-box">
+                <i class="ri-user-3-line login-icon"></i>
+                <div class="login-box-input">
+                  <input type="text" formControlName="description" class="login-input" id="login-description" required
+                    placeholder="Description">
+                  <!-- <label for="login-email" class="login-label">Email</label> -->
+                </div>
+              </div>
+
+              <div class="select-profile d-flex justify-content-between align-items-center">
+                <span>Select Profile</span>
+                <a href="javascript:void(0)" (click)="onSelectImageClick()">
+                  <img *ngIf="imageSelectedFileUrl" class="profile-image" [src]="imageSelectedFileUrl" alt="Selected Image" />
+                  <img *ngIf="!imageSelectedFileUrl" class="profile-image" src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="Placeholder" />
+                </a>
+                <input type="file" (change)="onFileSelectedImage($event)" accept="image/*" id="imageFileInput" style="display: none;">
+              </div>
+
+              <div class="select-profile d-flex justify-content-between align-items-center" (click)="onSelectVideoClick()">
+                <span>Select Video</span>
+                <a href="javascript:void(0)" >
+                  <video *ngIf="!videoSelectedFileUrl" width="40px" height="30px" class="profile-video" controls>
+                    <source src="assets/images/video1/mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <video *ngIf="videoSelectedFileUrl" width="40px" height="30px" class="profile-video" controls
+                    [src]="videoSelectedFileUrl" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </a>
+                <input type="file"  (change)="onFileSelectedVideo($event)" accept="video/*" id="videoFileInput"
+                   style="display: none;">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn addButton" (click)="addTopic()">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="d-flex justify-content-center mb-2">
+    <div class="custom-spinner" *ngIf="isLoading"></div>
+  </div>
+  <div class="topic-desc px-3 py-3" *ngFor="let topic of getTopics">
+    <div class="topic-tittle d-flex justify-content-center">
+      <span>{{topic.tittle}}</span>
+    </div>
+    <div class="desc-content d-flex justify-content-center">
+      <p>{{topic.description}}</p>
+    </div>
+    <div class="read-more-btn d-flex justify-content-end">
+      <a [routerLink]="['/descriptions-details', topic.id]"  type="button" class="btn readmore">Read more</a>
+    </div>
+    <div class="desc-image d-flex justify-content-center mb-2">
+      <img height="200px" width="100%" [src]="topic.image" alt="img">
+    </div>
+    <div class="desc-vedio d-flex justify-content-center mb-2">
+      <video height="260" width="100%" controls>
+        <source [src]="topic.video" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>
