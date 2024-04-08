@@ -123,9 +123,6 @@ export class DescriptionsDetailComponent implements OnInit {
 
         this.isLoading = false;
       },
-
-    
-      
   
       error: (error) => {
         // Handle error
@@ -134,9 +131,9 @@ export class DescriptionsDetailComponent implements OnInit {
     });
   }
   
-
-  // getSafeImageUrl(url: string): SafeUrl {
-  //   return this.sanitizer.bypassSecurityTrustUrl(url);
-  // }
+  toggleVideo() {
+    this.videoplayer.play();
+}
+ 
 
 }

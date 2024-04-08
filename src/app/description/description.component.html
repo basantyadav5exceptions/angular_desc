@@ -89,12 +89,14 @@
     <div class="topic-tittle d-flex justify-content-center">
       <span>{{topic.tittle}}</span>
     </div>
+    <div class="set-paragraph">
     <div class="desc-content d-flex justify-content-center">
       <p>{{topic.description}}</p>
     </div>
     <div class="read-more-btn d-flex justify-content-end">
       <a [routerLink]="['/descriptions-details', topic.id]"  type="button" class="btn readmore">Read more</a>
     </div>
+  </div>
     <div class="desc-image d-flex justify-content-center mb-2">
       <img height="200px" width="100%" [src]="topic.image" alt="img">
     </div>

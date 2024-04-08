@@ -10,6 +10,19 @@
         transition: height 0.3s ease-in-out;
 }
 
+@media screen and (max-width: 768px) {
+  .topic-desc {
+      height: auto; /* Adjust height based on content */
+  }
+  .topic-name {
+    margin-top: 20px;
+  }
+}
+
+.set-paragraph{
+  height: 190px;
+}
+
 .addMoreBtn{
   cursor: pointer;
     color: aliceblue;

@@ -110,6 +110,13 @@ export class DescriptionComponent implements OnInit {
 
 
     addTopic() {
+      if (this.addMoreTopicForm.invalid) {
+        this.addMoreTopicForm.controls['category'].markAsDirty();
+        this.addMoreTopicForm.controls['tittle'].markAsDirty();
+        this.addMoreTopicForm.controls['description'].markAsDirty();
+        this.toastr.error("Please enter all fields");
+        return;
+      }
       this.isLoading = true;
       const payload = this.addMoreTopicForm.value;
       
@@ -128,6 +135,7 @@ export class DescriptionComponent implements OnInit {
 
       this.authService.addTopic(formData).subscribe({
         next: (response) => {
+          this.toastr.success(response.message)
           this.isLoading = false;
           this.closePopup();
 
