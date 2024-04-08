@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthServicesService } from '../service/auth-services.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeUrl  } from '@angular/platform-browser';
+import { compileNgModule } from '@angular/compiler';
 
 @Component({
   selector: 'app-descriptions-detail',
@@ -21,6 +22,7 @@ export class DescriptionsDetailComponent implements OnInit {
   userId : string = ''
   topicId:any;
   isLoading :boolean = false
+  @ViewChild('videoPlayer') videoplayer: any;
 
   commentOnTopicForm = new FormGroup({
     comment_desc: new FormControl(null, Validators.required),
@@ -92,7 +94,10 @@ export class DescriptionsDetailComponent implements OnInit {
     this.isLoading = true;
     this.authService.getCommentOnTopic(topic_id).subscribe({
       next: (response) => {
-        this.getCommentData = response;
+        this.getCommentData = response.map((comment :any)=> ({
+          ...comment,
+          user_image: comment.user_image ? `http://localhost:3000/files${comment.user_image.split('files')[1].replace(/\\/g, '/')}` : null, // Modify the image URL
+        }));
           this.isLoading = false;
       },
   
@@ -112,11 +117,11 @@ export class DescriptionsDetailComponent implements OnInit {
         // Modify the image and video URLs
         this.getTopicsData = response.map((topic :any)=> ({
           ...topic,
-          image: topic.image ? `http://localhost:4200/assets${topic.image.split('files')[1]}` : null, // Modify the image URL
-          video: topic.video ? `http://localhost:4200/assets${topic.video.split('files')[1]}` : null // Modify the video URL
+          image: topic.image ? `http://localhost:3000/files${topic.image.split('files')[1].replace(/\\/g, '/')}` : null, // Modify the image URL
+          video: topic.video ? `http://localhost:3000/files${topic.video.split('files')[1].replace(/\\/g, '/')}` : null // Modify the video URL
         }));
+
         this.isLoading = false;
-        console.log("data", this.getTopicsData);
       },
 
     

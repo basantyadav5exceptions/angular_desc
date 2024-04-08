@@ -151,13 +151,16 @@ export class DescriptionComponent implements OnInit {
     this.isLoading = true;
     this.authService.getAllTopics(technology).subscribe({
       next: (response) => {
-        this.getTopics = response
-          // this.toastr.success(response.message);
+        this.getTopics = response.map((topic :any)=> ({
+          ...topic,
+          image: topic.image ? `http://localhost:3000/files${topic.image.split('files')[1].replace(/\\/g, '/')}` : null, 
+          video: topic.video ? `http://localhost:3000/files${topic.video.split('files')[1].replace(/\\/g, '/')}` : null, 
+        }));
           this.isLoading = false;
       },
   
       error: (error) => {
-         this.errorMessage = error.error.message;
+        this.errorMessage = error.error.message;
         this.isLoading = false;
       },
     });

@@ -33,11 +33,14 @@
           <img height="200px" width="100%" class="img-fluid img-thumbnail" [src]="topic.image" alt="Image">
         </div>
         <div class="desc-video d-flex justify-content-center mb-2">
-          <video height="260" width="100%" controls>
+          <video height="260px" width="100%" controls>
             <source [src]="topic.video" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </div>
+        {{topic.video}}
+        <br>
+        {{topic.image}}
       </div>
       
       <form action="" [formGroup]="commentOnTopicForm">
@@ -63,7 +66,7 @@
     <div class="get-comment-on-topic">
         <div class="list-of-comment d-flex justify-content-between align-items-center" *ngFor="let comments of getCommentData">
             <div class="form-group">
-               <img height="20px" width="20" class="mb-1" src="assets/images/users-logo1.jpg" alt="">
+               <img height="20px" width="20" class="mb-1" [src]="comments.user_image" alt="">
                 <span for="">{{comments.user_name}}</span>
                 <textarea type="textarea" [value]="comments.comment_desc" class="form-control" rows="1" cols="78" readonly></textarea>
             </div>
