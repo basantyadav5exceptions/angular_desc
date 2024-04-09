@@ -25,7 +25,7 @@ export class AppComponent {
     'user-login',
     'user-register',
     'descriptions-details',
-    'add-descriptions'
+    // 'add-descriptions'
   ];
 
 }

@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class UserLoginComponent{
 
   isLoading:boolean=false
+  password: boolean = false;
 
   userLoginForm = new FormGroup({
     email: new FormControl('', Validators.required),

@@ -1,0 +1,22 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Adjust the z-index if needed */
+    /* Add styles like background color, height, etc. */
+}
+
+.main-content {
+    padding-top: 90px; /* Adjust as needed to accommodate the fixed header */
+}
+
+.content-wrapper {
+    height: calc(100vh - 50px); /* Subtracting the height of the fixed header */
+    overflow-y: auto;
+}
+
+.site-bar {
+    height: 100%; /* Make sidebar fill the height */
+    overflow-y: auto; /* Allow sidebar content to scroll if it exceeds the height */
+}

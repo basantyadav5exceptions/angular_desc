@@ -22,6 +22,7 @@ export class DescriptionsDetailComponent implements OnInit {
   userId : string = ''
   topicId:any;
   isLoading :boolean = false
+  displayTech:string=''
   @ViewChild('videoPlayer') videoplayer: any;
 
   commentOnTopicForm = new FormGroup({
@@ -40,6 +41,11 @@ export class DescriptionsDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+     
+    this.authService.getSelectedTechnology().subscribe(technology => {
+       this.displayTech = technology
+    });
+
     this.activeRoute.params.subscribe(params => {
       this.topicId = params['id']; 
     });

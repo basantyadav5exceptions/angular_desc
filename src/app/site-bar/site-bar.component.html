@@ -1,17 +1,20 @@
 <div class="site-bar">
-    <div class="category">
-        <span class="technology">Technology</span>
-    </div>
+  <div class="user-image-icon">
+    <img height="45px" width="45px" class="user-image" [src]="userImage" alt="">
+  </div>
+  <div class="category">
+    <span>Technology</span>
+  </div>
     <div class="nav-items">
         <div class="nav-item" [class.active-technology]="activeTechnology === 'Angular'" (click)="getTechnology('Angular')">
           <img class="image-icon" width="20px" height="20px" src="../../assets/images/angular.png" alt="">
           <span value="Angular">Angular</span>
         </div>
-        <div class="nav-item" [class.active-technology]="activeTechnology === 'Node Js'" (click)="getTechnology('NodeJs')">
+        <div class="nav-item" [class.active-technology]="activeTechnology === 'NodeJs'" (click)="getTechnology('NodeJs')">
           <img class="image-icon" width="20px" height="20px" src="../../assets/images/nodejs.png" alt="">
           <span value="Node Js">NodeJs</span>
         </div>
-        <div class="nav-item" [class.active-technology]="activeTechnology === 'React Js'" (click)="getTechnology('ReactJs')">
+        <div class="nav-item" [class.active-technology]="activeTechnology === 'ReactJs'" (click)="getTechnology('ReactJs')">
           <img class="image-icon" width="20px" height="20px" src="../../assets/images/reactjs.png" alt="">
           <span value="React Js">ReactJs</span>
         </div>
@@ -26,6 +29,10 @@
         <div class="nav-item" [class.active-technology]="activeTechnology === 'Android'" (click)="getTechnology('Android')">
           <img class="image-icon" width="20px" height="20px" src="../../assets/images/android.png" alt="">
           <span value="Android">Android</span>
+        </div>
+        <div class="nav-item"  (click)="logout()">
+          <i class="fa fa-sign-out"></i>
+          <span value="Android">Sign out</span>
         </div>
       </div>
 </div>

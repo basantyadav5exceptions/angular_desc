@@ -4,6 +4,11 @@
   height: 30px !important;
 }
 
+.eye-show-hide-password{
+  position: absolute;
+  margin-left: 90%;
+}
+
 .camera-icon {
   background-color: #e7dbdc;
   width: 30px;
@@ -430,4 +435,11 @@ form.sign-in-form {
   padding-left: 55px;
   padding-right: 20px;
   border-radius: 55px;
+}
+
+.select-profile-text{
+  color: #afacac;
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 5px;
 }

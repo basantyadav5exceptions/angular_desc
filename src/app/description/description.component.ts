@@ -110,13 +110,13 @@ export class DescriptionComponent implements OnInit {
 
 
     addTopic() {
-      if (this.addMoreTopicForm.invalid) {
-        this.addMoreTopicForm.controls['category'].markAsDirty();
-        this.addMoreTopicForm.controls['tittle'].markAsDirty();
-        this.addMoreTopicForm.controls['description'].markAsDirty();
-        this.toastr.error("Please enter all fields");
-        return;
-      }
+      // if (this.addMoreTopicForm.invalid) {
+      //   this.addMoreTopicForm.controls['category'].markAsDirty();
+      //   this.addMoreTopicForm.controls['tittle'].markAsDirty();
+      //   this.addMoreTopicForm.controls['description'].markAsDirty();
+      //   this.toastr.error("Please enter all fields");
+      //   return;
+      // }
       this.isLoading = true;
       const payload = this.addMoreTopicForm.value;
       
@@ -137,6 +137,7 @@ export class DescriptionComponent implements OnInit {
         next: (response) => {
           this.toastr.success(response.message)
           this.isLoading = false;
+          this.addMoreTopicForm.reset();
           this.closePopup();
 
           this.authService.getSelectedTechnology().subscribe(technology => {
@@ -146,13 +147,14 @@ export class DescriptionComponent implements OnInit {
           });
         },
         error: (error) => {
-          this.errorMessage = error.error.message;
+          this.toastr.error(error.error.message)
           this.isLoading = false;
         },
       });
     }
     
-    
+ 
+  
 
 
   getAllTopics(technology: string){
@@ -173,5 +175,6 @@ export class DescriptionComponent implements OnInit {
       },
     });
   }
+
 
 }

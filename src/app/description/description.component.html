@@ -85,7 +85,9 @@
   <div class="d-flex justify-content-center mb-2">
     <div class="custom-spinner" *ngIf="isLoading"></div>
   </div>
+
   <div class="topic-desc px-3 py-3" *ngFor="let topic of getTopics">
+    <div class="response-success">
     <div class="topic-tittle d-flex justify-content-center">
       <span>{{topic.tittle}}</span>
     </div>
@@ -97,7 +99,7 @@
       <a [routerLink]="['/descriptions-details', topic.id]"  type="button" class="btn readmore">Read more</a>
     </div>
   </div>
-    <div class="desc-image d-flex justify-content-center mb-2">
+    <!-- <div class="desc-image d-flex justify-content-center mb-2">
       <img height="200px" width="100%" [src]="topic.image" alt="img">
     </div>
     <div class="desc-vedio d-flex justify-content-center mb-2">
@@ -105,6 +107,7 @@
         <source [src]="topic.video" type="video/mp4">
         Your browser does not support the video tag.
       </video>
-    </div>
+    </div> -->
+  </div>
   </div>
 </div>

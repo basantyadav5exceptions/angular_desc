@@ -17,6 +17,7 @@ export class UserRegistrationComponent implements OnInit {
   selectedFileUrl?: string;
   isLoading:boolean = false;
   imageFile:any;
+  password:boolean = false;
 
   registrationForm = new UntypedFormGroup({
     name: new FormControl('', Validators.required),

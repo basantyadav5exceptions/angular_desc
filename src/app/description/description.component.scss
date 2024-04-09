@@ -1,42 +1,45 @@
+.description-page{
+  // overflow-y: auto;
+  padding-left: 10px;
+}
 
-.topic-desc{
-    padding: 10px;
+
+.topic-desc {
+  padding: 10px;
     border: 1px solid rgb(235, 187, 187);
     box-shadow: 0px 11px 27px -17px;
     margin-bottom: 3rem;
     border-radius: 5px;
-    height: 190px;
-        overflow: hidden;
-        transition: height 0.3s ease-in-out;
+    width: auto; /* Set width to auto for responsiveness */
+    height: auto; /* Adjust height based on content */
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
 }
 
-@media screen and (max-width: 768px) {
+.read-more-btn {
+  margin-top: 10px; /* Add some space between description and button */
+}
+
+@media screen and (max-width: 320px) {
+  .read-more-btn {
+      justify-content: center; /* Center align the button on small screens */
+  }
+}
+
+@media screen and (max-width: 570px) {
   .topic-desc {
-      height: auto; /* Adjust height based on content */
-  }
-  .topic-name {
-    margin-top: 20px;
+      width: 100%; /* Allow responsiveness up to 570px */
   }
 }
 
-.set-paragraph{
-  height: 190px;
-}
 
-.addMoreBtn{
-  cursor: pointer;
-    color: aliceblue;
-    background-color: #4982cb;
-    // padding: 5px;
-    border-radius: 5px;
-}
 
-.add-topic-btn :hover{
-  font-weight: 400;
-}
+
+
+
 
 .topic-tittle{
-    background-color: #afc1e0;
+    background-color: #5995fd;
     padding: 2px;
     border-radius: 5px;
     color: aliceblue;
@@ -54,6 +57,15 @@
 
 }
 
+
+.login-input {
+  width: 100%;
+  padding-block: 0.8rem;
+  background-color: #eaeaea;
+  border-radius: 10px;
+  padding-left: 10px;
+}
+
   .modal-body{
     height: 300px;
     overflow-y: auto
@@ -66,14 +78,31 @@
     border-radius: 10px;
     border: 1px solid #5995fd;
   }
+
+   .addMoreBtn{
+    cursor: pointer;
+    border-radius: 10px;
+    border: 1px solid #1e68e7;
+    background-color: #dddddd;
+  }
+
+  .add-topic-btn :hover{
+    color: aliceblue !important;
+    background-color: #5995fd;
+  }
+  .readmore:hover{
+    color: aliceblue !important;
+    background-color: #5995fd;
+  }
+
   
-select{
-  padding: 12px;
-  width: 100%;
-  border-radius: 10px;
-  background-color: #85acee;;
-  color: #655c5c;
-}
+// select{
+//   padding: 12px;
+//   width: 100%;
+//   border-radius: 10px;
+//   background-color: #85acee;;
+//   color: #655c5c;
+// }
 
 .profile-image {
   width: 30px !important;
@@ -113,8 +142,9 @@ select{
 padding: 12px;
 width: 100%;
 border-radius: 10px;
-background-color: #85acee;
-color: #655c5c;
+background-color: #eaeaea;
+color: #6e7073;
+border: none;
 }
 
 .profile-image {
@@ -143,19 +173,28 @@ margin-top: 4rem;
 height: calc(100vh - 250px);
 overflow-y: scroll;
 }
-
+.login-box-input{
+  padding-left: 10px;
+}
 
 .edit-profile{
 margin-left: 3rem;
 }
 
 .select-profile{
-  margin-left: 10px;
+  margin-left: 20px;
   padding: 10px;
-  background-color: #85acee;;
+  background-color: #eaeaea;
   border-radius: 10px;
+  color: #767676;
 }
+
 .addButton{
   background-color: #4982cb;
   color: aliceblue;
+}
+.addButton :hover{
+  background-color: #051b36 !important;
+  color: aliceblue;
+  font-weight: 600;
 }
