@@ -13,6 +13,8 @@ video{
     border: 1px solid rgb(118, 119, 118);
 }
 
+
+
 .topic-desc{
     padding: 10px;
     box-shadow: 0px 11px 27px -17px;
@@ -33,7 +35,6 @@ video{
 .topic-description{
     padding: 5px;
     background-color: #5995fd;
-    margin-bottom: 18px;
     font-size: 18px;
     font-weight: 600;
     color: aliceblue;
@@ -86,6 +87,23 @@ video{
   }
 
 .img-thumbnail{
-    height: 200px;
-    width: 50%
+    height: 300px;
+    width: 55%
+}
+
+.like-share{
+    gap: 25%;
+}
+
+.answer-label{
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.answer{
+    width: fit-content;
+}
+
+.answer-text-input{
+    margin-right: 10px;
 }

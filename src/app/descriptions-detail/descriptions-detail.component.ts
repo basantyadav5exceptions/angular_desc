@@ -25,8 +25,14 @@ export class DescriptionsDetailComponent implements OnInit {
   displayTech:string=''
   @ViewChild('videoPlayer') videoplayer: any;
 
+  showHideTextInput: number | null = null;
+
   commentOnTopicForm = new FormGroup({
     comment_desc: new FormControl(null, Validators.required),
+  })
+
+  answerOfComment = new FormGroup({
+    answer_desc : new FormControl(null, Validators.required)
   })
 
   constructor
@@ -66,6 +72,9 @@ export class DescriptionsDetailComponent implements OnInit {
     this.router.navigate(['/descriptions'])
   }
 
+  toggleTextArea(id: number) {
+    this.showHideTextInput = this.showHideTextInput === id ? null : id;
+  }
   
   createCommentOnTopic(){
 
@@ -81,6 +90,33 @@ export class DescriptionsDetailComponent implements OnInit {
          user_name: this.userName,
          user_image: this.userImage,
          tp_id : this.topicId
+    }
+    this.authService.createCommentOnTopic(payload).subscribe({
+      next: (response) => {
+        this.getCommentOnTopic(this.topicId);
+        this.commentOnTopicForm.reset()
+        this.createCommentData = response
+          // this.toastr.success(response.message);
+      },
+  
+      error: (error) => {
+         this.toastr.error(error.error.message);
+      },
+    });
+  }
+
+  createAnswerOnCommets(comments_id : number){
+
+    if (this.commentOnTopicForm.invalid) {
+      this.answerOfComment.controls['answer_desc'].markAsDirty();
+      this.toastr.error("Please given answer");
+      return;
+    }
+
+    const payload = {
+         comments_id : comments_id,
+         answer_desc : this.answerOfComment.value.answer_desc,
+         user_id : this.userId,
     }
     this.authService.createCommentOnTopic(payload).subscribe({
       next: (response) => {

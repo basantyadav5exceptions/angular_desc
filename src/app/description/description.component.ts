@@ -20,6 +20,8 @@ export class DescriptionComponent implements OnInit {
   isLoading: boolean = false;
   TopicId:any
   displayStyle:any;
+  getTittle? : any
+  getTechnology: any;
  
   selectedFile?: any;
   videoSelectedFileUrl: string | ArrayBuffer | null = null;
@@ -53,10 +55,14 @@ export class DescriptionComponent implements OnInit {
       }
 
       this.authService.getSelectedTechnology().subscribe(technology => {
-        if (technology) {
-          this.getAllTopics(technology);
-        }
+        this.getTechnology = technology
       });
+
+     this.authService.getTittle().subscribe(tittle =>{
+      this.getTittle = tittle;
+      this.getAllTopics(this.getTechnology, this.getTittle)
+     })
+
     }
 
     onSelectImageClick() {
@@ -140,11 +146,11 @@ export class DescriptionComponent implements OnInit {
           this.addMoreTopicForm.reset();
           this.closePopup();
 
-          this.authService.getSelectedTechnology().subscribe(technology => {
-            if (technology) {
-              this.getAllTopics(technology);
-            }
-          });
+          this.authService.getTittle().subscribe(tittle =>{
+            this.getTittle = tittle;
+            this.getAllTopics(this.getTechnology, this.getTittle)
+           })
+           
         },
         error: (error) => {
           this.toastr.error(error.error.message)
@@ -157,24 +163,27 @@ export class DescriptionComponent implements OnInit {
   
 
 
-  getAllTopics(technology: string){
-    this.isLoading = true;
-    this.authService.getAllTopics(technology).subscribe({
-      next: (response) => {
-        this.getTopics = response.map((topic :any)=> ({
-          ...topic,
-          image: topic.image ? `http://localhost:3000/files${topic.image.split('files')[1].replace(/\\/g, '/')}` : null, 
-          video: topic.video ? `http://localhost:3000/files${topic.video.split('files')[1].replace(/\\/g, '/')}` : null, 
-        }));
-          this.isLoading = false;
-      },
+    getAllTopics(tittle: string, technology:string) {
+      this.isLoading = true;
+      this.authService.getAllTopics(tittle, technology).subscribe({
+          next: (response) => {
+              this.getTopics = response.map((topic: any) => ({
+                  ...topic,
+                  image: topic.image ? `http://localhost:3000/files${topic.image.split('files')[1].replace(/\\/g, '/')}` : null,
+                  video: topic.video ? `http://localhost:3000/files${topic.video.split('files')[1].replace(/\\/g, '/')}` : null,
+              }));
+              this.isLoading = false;
+          },
   
-      error: (error) => {
-        this.errorMessage = error.error.message;
-        this.isLoading = false;
-      },
-    });
+          error: (error) => {
+              this.errorMessage = error.error.message;
+              this.isLoading = false;
+          },
+      });
   }
+
+
+  
 
 
 }

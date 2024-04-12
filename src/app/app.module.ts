@@ -7,12 +7,13 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { SiteBarComponent } from './site-bar/site-bar.component';
 import { DescriptionComponent } from './description/description.component';
 import { DescriptionsDetailComponent } from './descriptions-detail/descriptions-detail.component';
-import { AddDescriptionsComponent } from './add-descriptions/add-descriptions.component';
+import { HeaderComponent }  from './header/header.component'; 
 import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SiteBarComponent,
     DescriptionComponent,
     DescriptionsDetailComponent,
-    AddDescriptionsComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +38,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     }),
     BrowserAnimationsModule,
     FontAwesomeModule,
+    BsDropdownModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

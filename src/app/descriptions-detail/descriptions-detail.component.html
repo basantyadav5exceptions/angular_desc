@@ -34,14 +34,27 @@
           <p>{{ topic.description }}</p>
         </div>
         <div class="desc-image d-flex justify-content-center mb-2">
-          <img height="100px" width="50%" class="img-fluid img-thumbnail" [src]="topic.image" alt="Image">
+          <img height="150px" width="50%" class="img-fluid img-thumbnail" [src]="topic.image" alt="Image">
         </div>
         <div class="desc-video d-flex justify-content-center mb-2">
-          <video height="200px" width="50%" controls (click)="toggleVideo()" id="videoPlayer">
+          <video height="300px" width="55%" controls (click)="toggleVideo()" id="videoPlayer">
             <source [src]="topic.video" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </div>
+        <div class="d-flex justify-content-center like-share">
+          <div class="like-icon">
+              <i class="bi bi-hand-thumbs-up"></i>
+          </div>
+          <div class="comment-icon">
+            <i class="bi bi-chat"></i>
+          </div>
+          <div class="share-icon">
+              <i class="bi bi-share"></i>
+          </div>
+      </div>
+      
+      
         <br>
       </div>
       
@@ -52,10 +65,10 @@
       
       <div class="comment-area-profile d-flex justify-content-start">
           <div class="comment">
-            <textarea type="textarea" formControlName="comment_desc" class="form-control" rows="1" cols="79" placeholder="Enter here..."></textarea>
+            <textarea type="textarea" formControlName="comment_desc" class="form-control form-control-sm" rows="1" cols="75" placeholder="Enter here..."></textarea>
            </div>
            <div class="sendButton">
-            <button type="button" class="btn" (click)="createCommentOnTopic()">Send</button>
+            <button type="button" class="btn btn-sm" (click)="createCommentOnTopic()">Send</button>
             </div>
       </div>
       <!-- <div class="comment-send-btn d-flex justify-content-between px-5">
@@ -68,18 +81,30 @@
         </div>
        </div> -->
     </form>
-    <div class="get-comment-on-topic">
-        <div class="list-of-comment d-flex justify-content-start align-items-center" *ngFor="let comments of getCommentData">
-          
-            <div class="form-data">
-                <span for="" class="user-name">{{comments.user_name}}</span>
-                <div>
-                <span>{{comments.comment_desc}}</span>
-              </div>
+    <div class="get-comment-on-topic" *ngFor="let comment of getCommentData">
+      <form action="" [formGroup]="answerOfComment">
+        <div class="list-of-comment d-flex justify-content-start align-items-center">
+          <div class="form-data">
+            <span for="" class="user-name">{{comment.user_name}}</span>
+            <div>
+              <span>{{comment.comment_desc}}</span>
             </div>
-            <div class="user-image-icon">
-            <img height="55px" width="55px" class="user-image" [src]="comments.user_image" alt="">
+          </div>
+          <div class="user-image-icon">
+            <img height="55px" width="55px" class="user-image" [src]="comment.user_image" alt="">
           </div>
         </div>
+        <a class="answer-label" (click)="toggleTextArea(comment.id)">Answer</a>
+
+        <div class="answer d-flex justify-content-between" *ngIf="showHideTextInput === comment.id">
+          <div class="answer-text-area">
+          <textarea type="textarea" formControlName="answer_desc" class="form-control form-control-sm answer-text-input" rows="1" placeholder="Enter here..."></textarea>
+        </div>
+          <div class="sendButton">
+            <button type="button" class="btn  btn-sm" (click)="createAnswerOnCommets(comment.id)">Send</button>
+            </div>
+        </div>
+      </form>
     </div>
+    
     </div>

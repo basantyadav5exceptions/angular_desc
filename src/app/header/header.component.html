@@ -1,0 +1,25 @@
+<div class="header">
+  <form action="" [formGroup]="searchTopicByTittleForm">
+   <div class="d-flex justify-content-between">
+     <a class="desc-logo" (click)="toggleSidebar()">
+      <i class="bi bi-list"></i>
+     </a>
+     <div class="search-bar d-flex justify-content-between">
+       <input type="text" (keyup)="searchTopicByTittle()" formControlName="tittle" class="search-input" placeholder="Search">
+       <i class="fa fa-search"></i>
+     </div>
+     <div class="login-user-profile" dropdown>
+      <a id="button-basic" dropdownToggle type="button" placement="bottom right">
+        <img class="user-image" width="35px" height="35px" [src]="userImage" alt="">
+      </a>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+      role="menu" aria-labelledby="button-basic">
+      <li role="menuitem"><a class="dropdown-item pointer"><i class="bi bi-person"></i>Profile</a></li>
+      <li role="menuitem"><a class="dropdown-item pointer" (click)="logoutUser()"> <i class="bi bi-box-arrow-right"></i>Signout</a></li>
+      </ul>
+     </div>
+   </div>
+  </form>
+  </div>
+
+  

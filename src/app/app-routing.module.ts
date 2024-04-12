@@ -12,7 +12,6 @@ const routes: Routes = [
   { path: 'user-register', component: UserRegistrationComponent },
   { path: 'descriptions', component: DescriptionComponent, canActivate:[AuthGuardGuard] },
   { path: 'descriptions-details/:id', component: DescriptionsDetailComponent, canActivate:[AuthGuardGuard]  },
-  // { path: 'add-descriptions', component: AddDescriptionsComponent },
 ];
 
 @NgModule({
