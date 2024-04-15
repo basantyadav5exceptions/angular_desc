@@ -64,22 +64,33 @@ video{
 }
 
 .form-data{
-    background-color: #e8e6e6;
+    background-color: #ededed;
     width: 48%;
     padding: 5px;
     margin-top: 10px;
     border-radius: 10px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
 }
 .user-image-icon{
     margin-left: 10px;
     border-radius: 50%;
 }
 
+textarea.form-control {
+    border-radius: 10px;
+}
+
+.reply-label{
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
 .user-image{
     border-radius: 50%;
     border: 1px solid;
-    margin-bottom: 10px;
+    margin-top: 5px;
 }
 .sendButton:hover{
     color: aliceblue !important;
@@ -92,12 +103,16 @@ video{
 }
 
 .like-share{
-    gap: 25%;
+    gap: 23%;
 }
 
-.answer-label{
-    cursor: pointer;
-    margin-right: 20px;
+.form-data-ans{
+    background-color: #ededed;
+    width: 40%;
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 10px;
+    margin-left: 8%;
 }
 
 .answer{
@@ -107,3 +122,35 @@ video{
 .answer-text-input{
     margin-right: 10px;
 }
+.auth-name{
+    font-weight: 600;
+}
+
+
+
+.total-comments{
+    font-size: 12px;
+    color: #5995fd;
+    font-weight: 500;
+}
+
+// .like-icon :hover, .comment-icon :hover, .share-icon :hover{
+//     // color: white;
+//     background-color: rgb(245, 44, 77);
+//     border-radius: 10px;
+// }
+
+.social-icon{
+   margin-right: 3px;
+}
+
+.blue-icon {
+    color: #5995fd;
+  }
+  
+  .black-icon {
+    color: #787878;
+  }
+  .fa-comment{
+    color: #787878;
+  }

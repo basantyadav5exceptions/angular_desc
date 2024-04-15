@@ -13,7 +13,14 @@ import { compileNgModule } from '@angular/compiler';
 })
 export class DescriptionsDetailComponent implements OnInit {
   getTopicsData : Array<any> = []
+  getReplyOfCommentsData : Array<any> = []
+  getLikeList : Array<any> = []
+  likeUnlikeData : Array<any> = []
+  getAnswerList : any;
+  showHideCommentSection:boolean = false
+  isLiked:boolean = false
   createCommentData : Array<any> = []
+  getAnswerData : Array<any> = []
   getCommentData : Array<any> = []
   errorMessage: string = '';
   userDetails : string | null |any;
@@ -24,6 +31,7 @@ export class DescriptionsDetailComponent implements OnInit {
   isLoading :boolean = false
   displayTech:string=''
   @ViewChild('videoPlayer') videoplayer: any;
+  totalCommentAndReply ?: number
 
   showHideTextInput: number | null = null;
 
@@ -67,6 +75,8 @@ export class DescriptionsDetailComponent implements OnInit {
     
     this.getTopicById(this.topicId);
     this.getCommentOnTopic(this.topicId);
+    this.getLikeUnlikeOnTopic(this.topicId);
+    this.getReplyOnComment()
   }
   navigateToDescriptionPage(){
     this.router.navigate(['/descriptions'])
@@ -74,6 +84,44 @@ export class DescriptionsDetailComponent implements OnInit {
 
   toggleTextArea(id: number) {
     this.showHideTextInput = this.showHideTextInput === id ? null : id;
+  }
+
+  toggleCommentSection() {
+    this.showHideCommentSection = !this.showHideCommentSection;
+  }
+
+  createUpdatelikeUnlike(){
+
+    const payload = {
+      user_id: this.userId,
+      tp_id: this.topicId
+    }
+    this.authService.createUpdatelikeUnlike(payload).subscribe({
+      next: (response) => {
+        this.likeUnlikeData = response;
+        this.isLiked = !this.isLiked;
+        this.getLikeUnlikeOnTopic(this.topicId);
+      },
+  
+      error: (error) => {
+         this.toastr.error(error.error.message);
+      },
+    });
+  }
+
+  getLikeUnlikeOnTopic(topic_id: any) {
+    this.isLoading = true;
+    this.authService.getLikeUnlikeOnTopic(topic_id).subscribe({
+      next: (response) => {
+        this.getLikeList = response
+          this.isLoading = false;
+      },
+  
+      error: (error) => {
+        // this.toastr.error(error.error.message);
+        this.isLoading = false;
+      },
+    });
   }
   
   createCommentOnTopic(){
@@ -105,25 +153,22 @@ export class DescriptionsDetailComponent implements OnInit {
     });
   }
 
-  createAnswerOnCommets(comments_id : number){
-
-    if (this.commentOnTopicForm.invalid) {
+  createReplyOnCommets(comment_id : number){
+    if (this.answerOfComment.invalid) {
       this.answerOfComment.controls['answer_desc'].markAsDirty();
       this.toastr.error("Please given answer");
       return;
     }
-
     const payload = {
-         comments_id : comments_id,
+         comment_id : comment_id,
          answer_desc : this.answerOfComment.value.answer_desc,
          user_id : this.userId,
     }
-    this.authService.createCommentOnTopic(payload).subscribe({
+    this.authService.createReplyOnCommets(payload).subscribe({
       next: (response) => {
-        this.getCommentOnTopic(this.topicId);
-        this.commentOnTopicForm.reset()
-        this.createCommentData = response
-          // this.toastr.success(response.message);
+        this.getReplyOnComment();
+        this.answerOfComment.reset()
+        this.getAnswerData = response;
       },
   
       error: (error) => {
@@ -140,6 +185,11 @@ export class DescriptionsDetailComponent implements OnInit {
           ...comment,
           user_image: comment.user_image ? `http://localhost:3000/files${comment.user_image.split('files')[1].replace(/\\/g, '/')}` : null, // Modify the image URL
         }));
+
+        this.getReplyOfCommentsData = this.getCommentData.flatMap(answerData => {
+          return answerData.answer_data.map((ele:number) => ele);
+      });
+         this.totalCommentAndReply = this.getCommentData.length + this.getReplyOfCommentsData.length
           this.isLoading = false;
       },
   
@@ -150,7 +200,21 @@ export class DescriptionsDetailComponent implements OnInit {
     });
   }
 
+  getReplyOnComment() {
+    this.isLoading = true;
+    this.authService.getReplyOnComment().subscribe({
+      next: (response) => {
+        this.getAnswerList = response
+          this.isLoading = false;
+      },
   
+      error: (error) => {
+        // this.toastr.error(error.error.message);
+        this.isLoading = false;
+      },
+    });
+  }
+
 
   getTopicById(topic_id: any) {
     this.isLoading = true;

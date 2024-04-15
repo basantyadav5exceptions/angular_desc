@@ -1,110 +1,121 @@
 <div class="description-details">
   <div class="heading-technology d-flex justify-content-start">
-        <span>{{this.displayTech}}</span>
+    <span>{{this.displayTech}}</span>
   </div>
-    <div class="topic-description d-flex justify-content-between align-items-center px-3">
-     
-      <div class="back-to-desc-page">
-        <div class="back-icon" (click)="navigateToDescriptionPage()">
-          <span>
-            <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 0 448 512" routerLink="/home">
-              <path
-                d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
-                fill="white" />
-            </svg>
-          </span>
-        </div>
-      </div>
+  <div class="topic-description d-flex justify-content-between align-items-center px-3">
 
-      <div class="desc-detail">
-        <span>Description Of Topic</span>
-      </div>
-      <div class="span">
-        <span></span>
+    <div class="back-to-desc-page">
+      <div class="back-icon" (click)="navigateToDescriptionPage()">
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 0 448 512" routerLink="/home">
+            <path
+              d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+              fill="white" />
+          </svg>
+        </span>
       </div>
     </div>
-    <div class="d-flex justify-content-center mb-2">
-        <div class="custom-spinner" *ngIf="isLoading"></div>
-      </div>
-      <div class="topic-desc" *ngFor="let topic of getTopicsData">
-        <div class="topic-title d-flex justify-content-center">
-          <span>{{ topic.title }}</span>
-        </div>
-        <div class="desc-content d-flex justify-content-center">
-          <p>{{ topic.description }}</p>
-        </div>
-        <div class="desc-image d-flex justify-content-center mb-2">
-          <img height="150px" width="50%" class="img-fluid img-thumbnail" [src]="topic.image" alt="Image">
-        </div>
-        <div class="desc-video d-flex justify-content-center mb-2">
-          <video height="300px" width="55%" controls (click)="toggleVideo()" id="videoPlayer">
-            <source [src]="topic.video" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div class="d-flex justify-content-center like-share">
-          <div class="like-icon">
-              <i class="bi bi-hand-thumbs-up"></i>
-          </div>
-          <div class="comment-icon">
-            <i class="bi bi-chat"></i>
-          </div>
-          <div class="share-icon">
-              <i class="bi bi-share"></i>
-          </div>
-      </div>
-      
-      
-        <br>
-      </div>
-      
-      <form action="" [formGroup]="commentOnTopicForm">
-      <div class="comment-text">
-        <label for="">Comments</label>
-      </div>
-      
-      <div class="comment-area-profile d-flex justify-content-start">
-          <div class="comment">
-            <textarea type="textarea" formControlName="comment_desc" class="form-control form-control-sm" rows="1" cols="75" placeholder="Enter here..."></textarea>
-           </div>
-           <div class="sendButton">
-            <button type="button" class="btn btn-sm" (click)="createCommentOnTopic()">Send</button>
-            </div>
-      </div>
-      <!-- <div class="comment-send-btn d-flex justify-content-between px-5">
-        <div class="">
-        </div>
-        <div class="sendButton mt-2">
-        <button type="button" class="btn" (click)="createCommentOnTopic()">Send</button>
-        </div>
-        <div class="">
-        </div>
-       </div> -->
-    </form>
-    <div class="get-comment-on-topic" *ngFor="let comment of getCommentData">
-      <form action="" [formGroup]="answerOfComment">
-        <div class="list-of-comment d-flex justify-content-start align-items-center">
-          <div class="form-data">
-            <span for="" class="user-name">{{comment.user_name}}</span>
-            <div>
-              <span>{{comment.comment_desc}}</span>
-            </div>
-          </div>
-          <div class="user-image-icon">
-            <img height="55px" width="55px" class="user-image" [src]="comment.user_image" alt="">
-          </div>
-        </div>
-        <a class="answer-label" (click)="toggleTextArea(comment.id)">Answer</a>
 
-        <div class="answer d-flex justify-content-between" *ngIf="showHideTextInput === comment.id">
-          <div class="answer-text-area">
-          <textarea type="textarea" formControlName="answer_desc" class="form-control form-control-sm answer-text-input" rows="1" placeholder="Enter here..."></textarea>
+    <div class="desc-detail">
+      <span>Description Of Topic</span>
+    </div>
+    <div class="span">
+      <span></span>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center mb-2">
+    <div class="custom-spinner" *ngIf="isLoading"></div>
+  </div>
+  <div class="topic-desc" *ngFor="let topic of getTopicsData">
+    <div class="topic-title d-flex justify-content-center">
+      <span>{{ topic.title }}</span>
+    </div>
+    <div class="desc-content d-flex justify-content-center">
+      <p>{{ topic.description }}</p>
+    </div>
+    <div class="desc-image d-flex justify-content-center mb-2">
+      <img height="150px" width="50%" class="img-fluid img-thumbnail" [src]="topic.image" alt="Image">
+    </div>
+    <div class="desc-video d-flex justify-content-center mb-2">
+      <video height="300px" width="55%" controls (click)="toggleVideo()" id="videoPlayer">
+        <source [src]="topic.video" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="d-flex justify-content-center like-share">
+      <div class="like-icon" (click)="createUpdatelikeUnlike()">
+        <i class="social-icon fa fa-thumbs-up" [ngClass]="{'black-icon': isLiked, 'blue-icon': !isLiked}"></i>
+        <span class="total-comments">{{this.getLikeList.length}}</span>
+      </div>
+      <div class="comment-icon" (click)="toggleCommentSection()">
+        <i class="social-icon fa fa-comment"></i>
+        <span class="total-comments">{{this.totalCommentAndReply}}</span>
+      </div>
+      <div class="share-icon">
+        <i class="social-icon bi bi-share"></i>
+      </div>
+    </div>
+    <br>
+  </div>
+
+  <form action="" [formGroup]="commentOnTopicForm">
+    <div class="comment-text">
+      <label for="">Comments</label>
+    </div>
+
+    <div class="comment-area-profile d-flex justify-content-start">
+      <div class="comment">
+        <textarea type="textarea" formControlName="comment_desc" class="form-control form-control-sm" rows="1" cols="75"
+          placeholder="Enter here..."></textarea>
+      </div>
+      <div class="sendButton">
+        <button type="button" class="btn btn-sm" (click)="createCommentOnTopic()">Send</button>
+      </div>
+    </div>
+  </form>
+  <div *ngIf="showHideCommentSection" class="comment-section">
+    <div class="get-comment-on-topic" *ngFor="let comment of getCommentData">
+      <div class="list-of-comment d-flex justify-content-start align-items-center">
+        <div class="form-data">
+          <span for="" class="user-name">{{ comment.user_name }}</span>
+          <div class="save-comment-desc">
+            <span>{{ comment.comment_desc }}</span>
+          </div>
         </div>
-          <div class="sendButton">
-            <button type="button" class="btn  btn-sm" (click)="createAnswerOnCommets(comment.id)">Send</button>
+        <div class="user-image-icon">
+          <img height="55px" width="55px" class="user-image" [src]="comment.user_image" alt="">
+        </div>
+      </div>
+
+      <form action="" [formGroup]="answerOfComment">
+        <div class="given-answer-comments">
+          <div class="reply-of-comments">
+            <a class="reply-label">like</a>
+            <a class="reply-label">|</a>
+            <a class="reply-label" (click)="toggleTextArea(comment.id)">Reply</a>
+          </div>
+          <div class="answer d-flex justify-content-between" *ngIf="showHideTextInput === comment.id">
+            <div class="answer-text-area">
+              <textarea type="textarea" formControlName="answer_desc"
+                class="form-control form-control-sm answer-text-input" rows="1" placeholder="Enter here..."></textarea>
             </div>
+            <div class="sendButton">
+              <button type="button" class="btn btn-sm" (click)="createReplyOnCommets(comment.id)">Send</button>
+            </div>
+          </div>
+          <div class="answer-list">
+            <div class="form-data-ans" *ngFor="let reply of comment.answer_data">
+              <div class="auth">
+                <span class="auth-name">{{ reply.user_name }}</span>
+              </div>
+              <div class="reply-desc">
+                <span>{{ reply.answer_desc }}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </form>
     </div>
-    
-    </div>
+
+  </div>
+</div>

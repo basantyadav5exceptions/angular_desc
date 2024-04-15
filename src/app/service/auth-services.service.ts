@@ -80,10 +80,22 @@ export class AuthServicesService {
   createCommentOnTopic(payload: any): Observable<any> {
     return this.http.post<any>(`${this.url}/create-comment`, payload);
   }
+  createReplyOnCommets(payload: any): Observable<any> {
+    return this.http.post<any>(`${this.url}/reply-of-comment`, payload);
+  }
   getCommentOnTopic(topic_id :any): Observable<any> {
     return this.http.get<any>(`${this.url}/comments/${topic_id}`);
   }
+  getReplyOnComment(): Observable<any> {
+    return this.http.get<any>(`${this.url}/get-reply-of-comment/1`);
+  }
   addTopic(payload :any): Observable<any> {
     return this.http.post<any>(`${this.url}/create-topic`, payload);
+  }
+  createUpdatelikeUnlike(payload :any): Observable<any> {
+    return this.http.post<any>(`${this.url}/like-unlike-topic`, payload);
+  }
+  getLikeUnlikeOnTopic(topic_id :any): Observable<any> {
+    return this.http.get<any>(`${this.url}/get-like-on-topic/${topic_id}`);
   }
 }
