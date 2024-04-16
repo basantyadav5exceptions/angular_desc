@@ -1,3 +1,4 @@
+
 <div class="description-details">
   <div class="heading-technology d-flex justify-content-start">
     <span>{{this.displayTech}}</span>
@@ -51,22 +52,54 @@
         <i class="social-icon fa fa-comment"></i>
         <span class="total-comments">{{this.totalCommentAndReply}}</span>
       </div>
-      <div class="share-icon">
+      <div class="share-icon" (click)="getListOfUserEmail()">
         <i class="social-icon bi bi-share"></i>
       </div>
     </div>
     <br>
   </div>
 
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Select Email</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closePopup()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="email-item" *ngFor="let userEmail of getUserEmailData">
+            <div class="email">{{userEmail.email}}</div>
+               <div class="checkbox">
+                <input type="checkbox">
+               </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn addButton">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="list-of-user-email">
+    <div class="email-item" *ngFor="let userEmail of getUserEmailData">
+        <div class="email">{{userEmail.email}}</div>
+           <div class="checkbox">
+            <input type="checkbox">
+           </div>
+    </div>
+</div> -->
+
   <form action="" [formGroup]="commentOnTopicForm">
     <div class="comment-text">
       <label for="">Comments</label>
     </div>
-
     <div class="comment-area-profile d-flex justify-content-start">
       <div class="comment">
         <textarea type="textarea" formControlName="comment_desc" class="form-control form-control-sm" rows="1" cols="75"
-          placeholder="Enter here..."></textarea>
+          placeholder="Comment here..."></textarea>
       </div>
       <div class="sendButton">
         <button type="button" class="btn btn-sm" (click)="createCommentOnTopic()">Send</button>
@@ -97,20 +130,24 @@
           <div class="answer d-flex justify-content-between" *ngIf="showHideTextInput === comment.id">
             <div class="answer-text-area">
               <textarea type="textarea" formControlName="answer_desc"
-                class="form-control form-control-sm answer-text-input" rows="1" placeholder="Enter here..."></textarea>
+                class="form-control form-control-sm answer-text-input" rows="1" cols="75" placeholder="Reply here..."></textarea>
             </div>
             <div class="sendButton">
               <button type="button" class="btn btn-sm" (click)="createReplyOnCommets(comment.id)">Send</button>
             </div>
           </div>
-          <div class="answer-list">
-            <div class="form-data-ans" *ngFor="let reply of comment.answer_data">
+          <div class="answer-list d-flex justify-content-start align-items-center" *ngFor="let reply of comment.answer_data">
+            <div class="form-data-ans" >
               <div class="auth">
                 <span class="auth-name">{{ reply.user_name }}</span>
               </div>
               <div class="reply-desc">
                 <span>{{ reply.answer_desc }}</span>
               </div>
+              
+            </div>
+            <div class="user-image-icon">
+              <img height="55px" width="55px" class="user-image" [src]="reply.user_image" alt="">
             </div>
           </div>
         </div>

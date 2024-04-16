@@ -13,6 +13,8 @@ export class AuthServicesService {
 
   private selectedTechnologySubject: BehaviorSubject<string> = new BehaviorSubject<string>('Angular');
   private sidebarVisibleSubject = new BehaviorSubject<boolean>(true);
+  private tittleSubject = new BehaviorSubject<any>(''); 
+ 
 
   constructor(
     private http: HttpClient
@@ -20,12 +22,24 @@ export class AuthServicesService {
 
     
     sidebarVisible$ = this.sidebarVisibleSubject.asObservable();
+    tittle$ = this.tittleSubject.asObservable();
   
     toggleSidebar() {
       this.sidebarVisibleSubject.next(!this.sidebarVisibleSubject.value);
     }
 
-  
+    getUserToken(): string | null {
+      const userInfoString = localStorage.getItem("userInfo");
+      if (userInfoString) {
+        const userInfo = JSON.parse(userInfoString);
+        return userInfo.token;
+      } else {
+        return null;
+      }
+      
+    }
+    
+
     setSelectedTechnology(technology: string): void {
       this.selectedTechnologySubject.next(technology);
     }
@@ -33,35 +47,23 @@ export class AuthServicesService {
     getSelectedTechnology(): BehaviorSubject<string> {
       return this.selectedTechnologySubject;
     }
-  
-  
-    getUserRole(): any {
-      this.getToken  = localStorage.getItem("userInfo");
-    }
 
-    private tittleSubject = new BehaviorSubject<any>(''); 
-    tittle$ = this.tittleSubject.asObservable();
+    getTittle(): BehaviorSubject<any> {
+      return this.tittleSubject; 
+    }
 
     setTittle(tittle: any) {
       this.tittleSubject.next(tittle); // Method to set the title value
     }
   
-    getTittle(): BehaviorSubject<any> {
-      return this.tittleSubject; 
-    }
-
-    // httpHeaders(): any {
-    //   return new HttpHeaders({
-    //     'Content-Type': 'application/json; charset=utf-8',
-    //     'Authorization': 'Bearer ' + this.getUserRole()
-    //   })
-    // }
   
-    // httpMultipartHeaders(): any {
-    //   return new HttpHeaders({
-    //     'Authorization': 'Bearer ' + this.getUserRole()
-    //   })
-    // }
+
+    httpHeaders(): any {
+      return new HttpHeaders({
+        'Authorization': 'Bearer ' + this.getUserToken()
+      })
+    }
+  
 
   loginUser(payload:any) : Observable<any>{
     return this.http.post<any>(`${this.url}/login`, payload );
@@ -70,12 +72,15 @@ export class AuthServicesService {
     return this.http.post<any>(`${this.url}/register`, payload );
   }
 
-  getAllTopics(technology: string, tittle:string): Observable<any> {
-    return this.http.get<any>(`${this.url}/search-topics/${technology}?tittle=${tittle}`);
+  getAllTopics(technology: string, tittle: string): Observable<any> {
+    return this.http.get<any>(`${this.url}/search-topics/${technology}?tittle=${tittle}`, {
+      headers: this.httpHeaders() 
+    });
   }
+  
 
   getTopicById(topic_id :any): Observable<any> {
-    return this.http.get<any>(`${this.url}/get-topics-by-id/${topic_id}`);
+    return this.http.get<any>(`${this.url}/get-topics-by-id/${topic_id}`, {headers: this.httpHeaders()});
   }
   createCommentOnTopic(payload: any): Observable<any> {
     return this.http.post<any>(`${this.url}/create-comment`, payload);
@@ -86,8 +91,8 @@ export class AuthServicesService {
   getCommentOnTopic(topic_id :any): Observable<any> {
     return this.http.get<any>(`${this.url}/comments/${topic_id}`);
   }
-  getReplyOnComment(): Observable<any> {
-    return this.http.get<any>(`${this.url}/get-reply-of-comment/1`);
+  getListOfUserEmail(): Observable<any> {
+    return this.http.get<any>(`${this.url}/get-user-email`);
   }
   addTopic(payload :any): Observable<any> {
     return this.http.post<any>(`${this.url}/create-topic`, payload);

@@ -64,7 +64,7 @@
                 <span>Select Video</span>
                 <a href="javascript:void(0)" >
                   <video *ngIf="!videoSelectedFileUrl" width="40px" height="30px" class="profile-video" controls>
-                    <source src="assets/images/video1/mp4" type="video/mp4">
+                    <source src="" type="video/mp4">
                     Your browser does not support the video tag.
                   </video>
                   <video *ngIf="videoSelectedFileUrl" width="40px" height="30px" class="profile-video" controls
@@ -88,28 +88,31 @@
     <div class="custom-spinner" *ngIf="isLoading"></div>
   </div>
 
-  <div class="topic-desc px-3 py-3" *ngFor="let topic of getTopics">
-    <div class="response-success">
-    <div class="topic-tittle d-flex justify-content-center">
-      <span>{{topic.tittle}}</span>
-    </div>
-    <div class="set-paragraph">
-    <div class="desc-content d-flex justify-content-center">
-      <p>{{topic.description}}</p>
-    </div>
-    <div class="read-more-btn d-flex justify-content-end">
-      <a [routerLink]="['/descriptions-details', topic.id]"  type="button" class="btn readmore">Read more</a>
+  <div *ngIf="!isLoading && !hasError">
+    <!-- Render topics -->
+    <div class="topic-desc px-3 py-3" *ngFor="let topic of getTopics">
+      <div class="response-success">
+        <div class="topic-tittle d-flex justify-content-center">
+          <span>{{topic.tittle}}</span>
+        </div>
+        <div class="set-paragraph">
+          <div class="desc-content d-flex justify-content-center">
+            <p>{{topic.description}}</p>
+          </div>
+          <div class="read-more-btn d-flex justify-content-end">
+            <a [routerLink]="['/descriptions-details', topic.id]"  type="button" class="btn readmore">Read more</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-    <!-- <div class="desc-image d-flex justify-content-center mb-2">
-      <img height="200px" width="100%" [src]="topic.image" alt="img">
-    </div>
-    <div class="desc-vedio d-flex justify-content-center mb-2">
-      <video height="260" width="100%" controls>
-        <source [src]="topic.video" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div> -->
+  
+  <div class="d-flex justify-content-center mb-2">
+    <div class="custom-spinner" *ngIf="isLoading"></div>
   </div>
+  
+  <div *ngIf="hasError" class=" d-flex justify-content-center align-items-center">
+    <p class="align-items-center">{{ this.errorMessage }}</p>
   </div>
+  
 </div>

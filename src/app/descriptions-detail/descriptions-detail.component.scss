@@ -108,20 +108,18 @@ textarea.form-control {
 
 .form-data-ans{
     background-color: #ededed;
-    width: 40%;
+    width: 34%;
     padding: 5px;
     margin-top: 10px;
     border-radius: 10px;
-    margin-left: 8%;
+    margin-left: 14%;
 }
 
 .answer{
     width: fit-content;
 }
 
-.answer-text-input{
-    margin-right: 10px;
-}
+
 .auth-name{
     font-weight: 600;
 }
@@ -154,3 +152,30 @@ textarea.form-control {
   .fa-comment{
     color: #787878;
   }
+
+
+
+  .list-of-user-email {
+ 
+}
+
+.email-item {
+    display: flex;
+    align-items: center;
+
+    /* Add padding, margin, etc. as needed */
+}
+
+.email {
+    flex: 1; /* Takes up remaining space */
+    /* Add padding, margin, etc. as needed */
+}
+
+.checkbox {
+    margin-left: 10px; /* Adjust as needed */
+    /* Add any other styling you need */
+}
+
+.checkbox input[type="checkbox"] {
+    /* Add any checkbox styling you need */
+}

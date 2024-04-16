@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthServicesService } from '../service/auth-services.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
+import { combineLatest } from 'rxjs';
+
 
 @Component({
   selector: 'app-description',
@@ -18,6 +20,7 @@ export class DescriptionComponent implements OnInit {
   getTopics: Array<any> = []
   errorMessage : string = ''
   isLoading: boolean = false;
+  hasError: boolean = false;
   TopicId:any
   displayStyle:any;
   getTittle? : any
@@ -54,15 +57,20 @@ export class DescriptionComponent implements OnInit {
         this.userId = userInfo.data.id;
       }
 
-      this.authService.getSelectedTechnology().subscribe(technology => {
-        this.getTechnology = technology
+      combineLatest([
+        this.authService.getSelectedTechnology(),
+        this.authService.getTittle()
+      ]).subscribe(([technology, tittle]) => {
+        this.getTechnology = technology;
+        this.getTittle = tittle;
+        this.callApi();
       });
-
-     this.authService.getTittle().subscribe(tittle =>{
-      this.getTittle = tittle;
-      this.getAllTopics(this.getTechnology, this.getTittle)
-     })
-
+    }
+  
+    callApi() {
+      if (this.getTechnology !== undefined && this.getTittle !== undefined) {
+        this.getAllTopics(this.getTechnology, this.getTittle);
+      }
     }
 
     onSelectImageClick() {
@@ -172,11 +180,13 @@ export class DescriptionComponent implements OnInit {
                   image: topic.image ? `http://localhost:3000/files${topic.image.split('files')[1].replace(/\\/g, '/')}` : null,
                   video: topic.video ? `http://localhost:3000/files${topic.video.split('files')[1].replace(/\\/g, '/')}` : null,
               }));
+              this.hasError = false;
               this.isLoading = false;
           },
   
           error: (error) => {
               this.errorMessage = error.error.message;
+              this.hasError = true;
               this.isLoading = false;
           },
       });

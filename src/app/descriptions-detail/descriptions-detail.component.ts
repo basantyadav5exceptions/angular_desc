@@ -13,6 +13,7 @@ import { compileNgModule } from '@angular/compiler';
 })
 export class DescriptionsDetailComponent implements OnInit {
   getTopicsData : Array<any> = []
+  getUserEmailData : Array<any> = []
   getReplyOfCommentsData : Array<any> = []
   getLikeList : Array<any> = []
   likeUnlikeData : Array<any> = []
@@ -32,6 +33,7 @@ export class DescriptionsDetailComponent implements OnInit {
   displayTech:string=''
   @ViewChild('videoPlayer') videoplayer: any;
   totalCommentAndReply ?: number
+  displayStyle:any;
 
   showHideTextInput: number | null = null;
 
@@ -76,10 +78,17 @@ export class DescriptionsDetailComponent implements OnInit {
     this.getTopicById(this.topicId);
     this.getCommentOnTopic(this.topicId);
     this.getLikeUnlikeOnTopic(this.topicId);
-    this.getReplyOnComment()
+    // this.getReplyOnComment()
   }
   navigateToDescriptionPage(){
     this.router.navigate(['/descriptions'])
+  }
+
+  // openPopup() {
+  //   this.displayStyle = "block";
+  // }
+  closePopup() {
+    this.displayStyle = "none";
   }
 
   toggleTextArea(id: number) {
@@ -166,7 +175,7 @@ export class DescriptionsDetailComponent implements OnInit {
     }
     this.authService.createReplyOnCommets(payload).subscribe({
       next: (response) => {
-        this.getReplyOnComment();
+        this.getCommentOnTopic(this.topicId);
         this.answerOfComment.reset()
         this.getAnswerData = response;
       },
@@ -200,20 +209,20 @@ export class DescriptionsDetailComponent implements OnInit {
     });
   }
 
-  getReplyOnComment() {
-    this.isLoading = true;
-    this.authService.getReplyOnComment().subscribe({
-      next: (response) => {
-        this.getAnswerList = response
-          this.isLoading = false;
-      },
+  // getReplyOnComment() {
+  //   this.isLoading = true;
+  //   this.authService.getReplyOnComment().subscribe({
+  //     next: (response) => {
+  //       this.getAnswerList = response
+  //         this.isLoading = false;
+  //     },
   
-      error: (error) => {
-        // this.toastr.error(error.error.message);
-        this.isLoading = false;
-      },
-    });
-  }
+  //     error: (error) => {
+  //       // this.toastr.error(error.error.message);
+  //       this.isLoading = false;
+  //     },
+  //   });
+  // }
 
 
   getTopicById(topic_id: any) {
@@ -239,6 +248,21 @@ export class DescriptionsDetailComponent implements OnInit {
   
   toggleVideo() {
     this.videoplayer.play();
+}
+
+getListOfUserEmail(){
+  this.displayStyle = "block";
+  this.isLoading = true;
+    this.authService.getListOfUserEmail().subscribe({
+      next: (response) => {
+        this.getUserEmailData = response
+          this.isLoading = false;
+      },
+  
+      error: (error) => {
+        this.isLoading = false;
+      },
+    });
 }
  
 
