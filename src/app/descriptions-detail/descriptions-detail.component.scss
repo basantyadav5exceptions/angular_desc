@@ -154,11 +154,6 @@ textarea.form-control {
   }
 
 
-
-  .list-of-user-email {
- 
-}
-
 .email-item {
     display: flex;
     align-items: center;
@@ -171,11 +166,29 @@ textarea.form-control {
     /* Add padding, margin, etc. as needed */
 }
 
-.checkbox {
-    margin-left: 10px; /* Adjust as needed */
-    /* Add any other styling you need */
+
+
+.modal{
+  .modal-dialog{
+    .modal-content{
+        width: 70%;
+        .modal-footer{
+            padding: 0;
+        }
+        .modal-header{
+            padding: 0 7px 0 7px;
+
+        }
+    }
+  }
 }
 
-.checkbox input[type="checkbox"] {
-    /* Add any checkbox styling you need */
-}
+.addButton{
+    background-color: #4982cb;
+    color: aliceblue;
+  }
+  .addButton :hover{
+    background-color: #051b36 !important;
+    color: aliceblue;
+    font-weight: 600;
+  }

@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthServicesService } from '../service/auth-services.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeUrl  } from '@angular/platform-browser';
 import { compileNgModule } from '@angular/compiler';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-descriptions-detail',
@@ -45,19 +46,24 @@ export class DescriptionsDetailComponent implements OnInit {
     answer_desc : new FormControl(null, Validators.required)
   })
 
+  shareTopicForm = new FormGroup({
+    receiver_userEmail: new FormArray([],)
+  });
+  
+
   constructor
   (
     private authService : AuthServicesService,
     private router : Router,
     private activeRoute: ActivatedRoute,
     private toastr : ToastrService,
-    private sanitizer: DomSanitizer
-  ) { 
-   
+    private sanitizer: DomSanitizer,
+    private cookieService: CookieService
+  ){
   }
-
+  
   ngOnInit(): void {
-     
+  
     this.authService.getSelectedTechnology().subscribe(technology => {
        this.displayTech = technology
     });
@@ -80,13 +86,54 @@ export class DescriptionsDetailComponent implements OnInit {
     this.getLikeUnlikeOnTopic(this.topicId);
     // this.getReplyOnComment()
   }
+
+  onChangeCheckBoxValue(event:any){
+  
+  const checkArray :FormArray = (this.shareTopicForm.get('receiver_userEmail') as FormArray);
+  if(event.target.checked){
+    checkArray.push(new FormControl(event.target.value))
+  }else{
+
+    let i = 0;
+    checkArray.controls.forEach((item:any)=>{
+     if(item.value == event.target.value){
+       checkArray.removeAt(i);
+       return;
+     }
+     i++;
+    })
+  }
+  }
+
+  shareTopicToUsers(){
+    this.isLoading = true;
+    const payload = {
+     sender_userId : this.userId,
+     receiver_userEmail : this.shareTopicForm.value.receiver_userEmail,
+     tp_id: this.topicId,
+     tp_link : window.location.href
+    }
+   this.authService.shareTopicToUsersByEmail(payload).subscribe({
+     next:(response)=>{
+      this.toastr.success(response.message)
+      this.cookieService.set('tp_link', window.location.href);
+      this.closePopup();
+      this.shareTopicForm.reset();
+       this.isLoading = false;
+     },
+     error:(error)=>{
+      this.toastr.error(error.error.message)
+       this.isLoading = false;
+     }
+   })
+    
+}
+
   navigateToDescriptionPage(){
     this.router.navigate(['/descriptions'])
   }
 
-  // openPopup() {
-  //   this.displayStyle = "block";
-  // }
+  
   closePopup() {
     this.displayStyle = "none";
   }
@@ -250,10 +297,11 @@ export class DescriptionsDetailComponent implements OnInit {
     this.videoplayer.play();
 }
 
-getListOfUserEmail(){
+getListOfUser(){
   this.displayStyle = "block";
   this.isLoading = true;
-    this.authService.getListOfUserEmail().subscribe({
+  const userId = this.userId
+    this.authService.getListOfUser(userId).subscribe({
       next: (response) => {
         this.getUserEmailData = response
           this.isLoading = false;
@@ -264,6 +312,5 @@ getListOfUserEmail(){
       },
     });
 }
- 
 
 }

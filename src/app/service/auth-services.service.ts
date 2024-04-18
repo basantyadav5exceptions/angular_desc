@@ -91,8 +91,8 @@ export class AuthServicesService {
   getCommentOnTopic(topic_id :any): Observable<any> {
     return this.http.get<any>(`${this.url}/comments/${topic_id}`);
   }
-  getListOfUserEmail(): Observable<any> {
-    return this.http.get<any>(`${this.url}/get-user-email`);
+  getListOfUser(userId: number | string): Observable<any> {
+    return this.http.get<any>(`${this.url}/get-user-name?id=${userId}`);
   }
   addTopic(payload :any): Observable<any> {
     return this.http.post<any>(`${this.url}/create-topic`, payload);
@@ -102,5 +102,8 @@ export class AuthServicesService {
   }
   getLikeUnlikeOnTopic(topic_id :any): Observable<any> {
     return this.http.get<any>(`${this.url}/get-like-on-topic/${topic_id}`);
+  }
+  shareTopicToUsersByEmail(payload :any): Observable<any> {
+    return this.http.post<any>(`${this.url}/send-topic-on-email`, payload);
   }
 }

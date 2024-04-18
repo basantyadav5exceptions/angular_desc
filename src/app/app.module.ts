@@ -14,6 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     FontAwesomeModule,
     BsDropdownModule.forRoot(),
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
