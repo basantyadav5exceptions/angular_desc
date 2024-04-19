@@ -66,6 +66,8 @@ export class DescriptionComponent implements OnInit {
         this.callApi();
       });
     }
+
+  
   
     callApi() {
       if (this.getTechnology !== undefined && this.getTittle !== undefined) {

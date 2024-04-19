@@ -3,6 +3,7 @@
     overflow-y: auto;
     padding-left: 10px;
     margin-bottom: 20px;
+    margin-top: 4rem;
 }
 
 .desc-video{
@@ -23,22 +24,18 @@ video{
 }
 
 .topic-tittle{
-    background-color: #afc1e0;
-    padding: 2px;
-    border-radius: 5px;
-    color: aliceblue;
+    color: black;
     font-weight: 600;
     font-size: 18px;
+    margin-bottom: 5px;
     
 }
 
 .topic-description{
-    padding: 5px;
-    background-color: #5995fd;
     font-size: 18px;
     font-weight: 600;
-    color: aliceblue;
-    // border-radius: 5px;
+    color: black;
+    margin-top: 10px;
 }
 .sendButton {
     color: white;
@@ -47,9 +44,7 @@ video{
     margin-left: 10px;
 }
 
-.desc-detail{
-   overflow-y: auto;
-}
+
 .heading-technology{
     background-color: #5995fd;
     color: aliceblue;

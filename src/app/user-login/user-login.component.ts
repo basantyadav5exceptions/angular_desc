@@ -14,7 +14,7 @@ export class UserLoginComponent{
 
   isLoading:boolean=false
   password: boolean = false;
-  cookieValue:any;
+  cookieValue?:string;
 
   userLoginForm = new FormGroup({
     email: new FormControl('', Validators.required),
@@ -27,7 +27,6 @@ export class UserLoginComponent{
     private toastr : ToastrService,
     private cookieService : CookieService
     ) {
-      this.cookieValue = this.cookieService.get('tp_link');
      }
 
      loginUser() {
@@ -45,18 +44,16 @@ export class UserLoginComponent{
         next: (response) => {
           this.toastr.success(response.message);
           
-          // Check if tp_link exists in cookies
           const tpLink = this.cookieService.get('tp_link');
+          
           if (tpLink) {
-            // Navigate to tp_link page
-            this.router.navigateByUrl(tpLink);
+            const dynamicUrl = tpLink.replace('http://localhost:4200', '');
+            this.router.navigate([dynamicUrl]);
             
           } else {
-            // Redirect to default page if tp_link does not exist
             this.router.navigate(['/descriptions']);
           }
           
-          // Store user information in local storage
           localStorage.setItem("userInfo", JSON.stringify(response));
           this.isLoading = false;
         },
@@ -66,5 +63,6 @@ export class UserLoginComponent{
         },
       });
     }
+    
     
 }

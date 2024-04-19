@@ -28,7 +28,7 @@ export class AuthServicesService {
       this.sidebarVisibleSubject.next(!this.sidebarVisibleSubject.value);
     }
 
-    getUserToken(): string | null {
+    getUserToken(): string | null  {
       const userInfoString = localStorage.getItem("userInfo");
       if (userInfoString) {
         const userInfo = JSON.parse(userInfoString);
@@ -71,14 +71,15 @@ export class AuthServicesService {
   userRegister(payload:any) : Observable<any>{
     return this.http.post<any>(`${this.url}/register`, payload );
   }
+  updateUserProfile(payload:any, userId:number | undefined) : Observable<any>{
+    return this.http.patch<any>(`${this.url}/update-profile/${userId}`, payload );
+  }
 
   getAllTopics(technology: string, tittle: string): Observable<any> {
     return this.http.get<any>(`${this.url}/search-topics/${technology}?tittle=${tittle}`, {
       headers: this.httpHeaders() 
     });
   }
-  
-
   getTopicById(topic_id :any): Observable<any> {
     return this.http.get<any>(`${this.url}/get-topics-by-id/${topic_id}`, {headers: this.httpHeaders()});
   }

@@ -63,7 +63,7 @@ export class DescriptionsDetailComponent implements OnInit {
   }
   
   ngOnInit(): void {
-  
+
     this.authService.getSelectedTechnology().subscribe(technology => {
        this.displayTech = technology
     });
@@ -116,7 +116,7 @@ export class DescriptionsDetailComponent implements OnInit {
    this.authService.shareTopicToUsersByEmail(payload).subscribe({
      next:(response)=>{
       this.toastr.success(response.message)
-      this.cookieService.set('tp_link', window.location.href);
+      this.cookieService.set("tp_link", window.location.href)
       this.closePopup();
       this.shareTopicForm.reset();
        this.isLoading = false;

@@ -1,35 +1,12 @@
 
+<app-header></app-header>
 <div class="description-details">
-  <div class="heading-technology d-flex justify-content-start">
-    <span>{{this.displayTech}}</span>
-  </div>
-  <div class="topic-description d-flex justify-content-between align-items-center px-3">
-
-    <div class="back-to-desc-page">
-      <div class="back-icon" (click)="navigateToDescriptionPage()">
-        <span>
-          <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 0 448 512" routerLink="/home">
-            <path
-              d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
-              fill="white" />
-          </svg>
-        </span>
-      </div>
-    </div>
-
-    <div class="desc-detail">
-      <span>Description Of Topic</span>
-    </div>
-    <div class="span">
-      <span></span>
-    </div>
-  </div>
   <div class="d-flex justify-content-center mb-2">
     <div class="custom-spinner" *ngIf="isLoading"></div>
   </div>
   <div class="topic-desc" *ngFor="let topic of getTopicsData">
-    <div class="topic-title d-flex justify-content-center">
-      <span>{{ topic.title }}</span>
+    <div class="topic-tittle d-flex justify-content-start">
+      <span>{{ topic.tittle }}</span>
     </div>
     <div class="desc-content d-flex justify-content-center">
       <p>{{ topic.description }}</p>
@@ -87,16 +64,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <div class="list-of-user-email">
-    <div class="email-item" *ngFor="let userEmail of getUserEmailData">
-        <div class="email">{{userEmail.email}}</div>
-           <div class="checkbox">
-            <input type="checkbox">
-           </div>
-    </div>
-</div> -->
-
   <form action="" [formGroup]="commentOnTopicForm">
     <div class="comment-text">
       <label for="">Comments</label>
@@ -127,7 +94,7 @@
 
       <form action="" [formGroup]="answerOfComment">
         <div class="given-answer-comments">
-          <div class="reply-of-comments">
+          <div class="reply-of-comments mt-2 mb-2">
             <a class="reply-label">like</a>
             <a class="reply-label">|</a>
             <a class="reply-label" (click)="toggleTextArea(comment.id)">Reply</a>

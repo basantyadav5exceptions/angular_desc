@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthServicesService } from './service/auth-services.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -16,10 +17,12 @@ export class AppComponent {
     public authService : AuthServicesService,
 
   ) {
+    
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.isLogin = !this.notAllowed.includes(router.url.split('/')[1]);
       }
+
     });
   }
   

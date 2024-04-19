@@ -1,11 +1,11 @@
 <div class="header">
   <form action="" [formGroup]="searchTopicByTittleForm">
    <div class="d-flex justify-content-between">
-     <a class="desc-logo" (click)="toggleSidebar()">
+     <a class="desc-logo">
       <i class="bi bi-list"></i>
      </a>
-     <div class="search-bar d-flex justify-content-between">
-       <input type="text" (keyup)="searchTopicByTittle()" formControlName="tittle" class="search-input" placeholder="Search">
+     <div  class="search-bar d-flex justify-content-between">
+       <input type="text" *ngIf="searchBarHide" (keyup)="searchTopicByTittle()" formControlName="tittle" class="search-input" placeholder="Search">
        <i class="fa fa-search"></i>
      </div>
      <div class="login-user-profile" dropdown>
@@ -14,11 +14,41 @@
       </a>
       <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
       role="menu" aria-labelledby="button-basic">
-      <li role="menuitem"><a class="dropdown-item pointer"><i class="bi bi-person"></i>Profile</a></li>
+      <li role="menuitem"><a class="dropdown-item pointer" (click)="openPopup()"><i class="bi bi-person"></i>Profile</a></li>
       <li role="menuitem"><a class="dropdown-item pointer" (click)="logoutUser()"> <i class="bi bi-box-arrow-right"></i>Signout</a></li>
       </ul>
+    </div>
+      <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Update user profile</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closePopup()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="" [formGroup]="updateUserProfileForm">
+                <div class="input-field">
+                  <input type="text" formControlName="name" placeholder="Name" />
+                </div>
+                <div class="select-profile input-field d-flex justify-content-between align-items-center">
+                  <span class="select-profile-text">Select Profile</span>
+                  <a href="javascript:void(0)" (click)="onSelectImageClick()">
+                    <img *ngIf="imageSelectedFileUrl" class="profile-image" [src]="imageSelectedFileUrl" alt="Selected Image" />
+                    <img *ngIf="!imageSelectedFileUrl" class="profile-image" src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="Placeholder" />
+                  </a>
+                  <input type="file" (change)="onFileSelectedImage($event)" accept="image/*" id="imageFileInput" style="display: none;">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn addButton" (click)="updateUserProfile()">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
      </div>
-   </div>
   </form>
   </div>
 

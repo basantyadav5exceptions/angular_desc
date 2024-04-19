@@ -40,3 +40,67 @@ width: 60%;
   border-radius: 50%;
   border: 1px solid;
 }
+
+.addButton{
+  background-color: #4982cb;
+  color: aliceblue;
+}
+.addButton :hover{
+  background-color: #051b36 !important;
+  color: aliceblue;
+  font-weight: 600;
+}
+.profile-image {
+  width: 30px !important;
+  height: 30px !important;
+}
+.select-profile{
+  margin-left: 10px;
+  padding-left: 55px;
+  padding-right: 20px;
+  border-radius: 55px;
+}
+
+.select-profile-text{
+  color: #afacac;
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.input-field {
+  max-width: 460px;
+  width: 100%;
+  background-color: #f0f0f0;
+  margin: 10px 0;
+  height: 55px;
+  border-radius: 55px;
+  display: flex;
+  grid-template-columns: 15% 85%;
+  padding: 0 0.4rem;
+  position: relative;
+}
+
+.input-field i {
+  text-align: center;
+  line-height: 55px;
+  color: #acacac;
+  transition: 0.5s;
+  font-size: 1.1rem;
+}
+
+.input-field input {
+  margin-left: 10px;
+  background: none;
+  outline: none;
+  border: none;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #686666;
+}
+
+.input-field input::placeholder {
+  color: #aaa;
+  font-weight: 500;
+}
