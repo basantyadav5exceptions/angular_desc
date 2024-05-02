@@ -21,6 +21,7 @@ export class DescriptionsDetailComponent implements OnInit {
   getAnswerList : any;
   showHideCommentSection:boolean = false
   isLiked:boolean = false
+  isCommentShow:boolean = false
   createCommentData : Array<any> = []
   getAnswerData : Array<any> = []
   getCommentData : Array<any> = []
@@ -144,18 +145,19 @@ export class DescriptionsDetailComponent implements OnInit {
 
   toggleCommentSection() {
     this.showHideCommentSection = !this.showHideCommentSection;
+    this.isCommentShow = !this.isCommentShow;
   }
 
   createUpdatelikeUnlike(){
-
+    this.isLiked = !this.isLiked;
     const payload = {
       user_id: this.userId,
       tp_id: this.topicId
     }
+   
     this.authService.createUpdatelikeUnlike(payload).subscribe({
       next: (response) => {
         this.likeUnlikeData = response;
-        this.isLiked = !this.isLiked;
         this.getLikeUnlikeOnTopic(this.topicId);
       },
   

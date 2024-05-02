@@ -13,18 +13,19 @@ import { combineLatest } from 'rxjs';
 })
 export class DescriptionComponent implements OnInit {
 
-  @ViewChild('imageFileInput') imageFileInput!: ElementRef;
+  @ViewChild('imageFileInputValue') imageFileInput!: ElementRef;
   @ViewChild('videoFileInput') vedioFileInput!: ElementRef;
 
+  totalNotification:Array<any> = []
   notFoundAnyTopic :string = '';
   getTopics: Array<any> = []
   errorMessage : string = ''
   isLoading: boolean = false;
   hasError: boolean = false;
-  TopicId:any
-  displayStyle:any;
+  TopicId?:number
+  displayStyle?:string;
   getTittle? : any
-  getTechnology: any;
+  getTechnology?: any;
  
   selectedFile?: any;
   videoSelectedFileUrl: string | ArrayBuffer | null = null;
@@ -67,8 +68,6 @@ export class DescriptionComponent implements OnInit {
       });
     }
 
-  
-  
     callApi() {
       if (this.getTechnology !== undefined && this.getTittle !== undefined) {
         this.getAllTopics(this.getTechnology, this.getTittle);
@@ -76,11 +75,26 @@ export class DescriptionComponent implements OnInit {
     }
 
     onSelectImageClick() {
-      const imageFileInput = document.getElementById('imageFileInput') as HTMLInputElement;
+      const imageFileInput = document.getElementById('imageFileInputValue') as HTMLInputElement;
       if (imageFileInput) {
         imageFileInput.click();
       }
     }
+    
+    onFileSelectedImage(event: any) {
+      const file: File = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.imageSelectedFileUrl = reader.result;
+          this.addMoreTopicForm.patchValue({
+            image: file
+          });
+        };
+      }
+    }
+
     onSelectVideoClick() {
       const videoFileInput = document.getElementById('videoFileInput') as HTMLInputElement;
       if (videoFileInput) {
@@ -103,20 +117,7 @@ export class DescriptionComponent implements OnInit {
       }
     }
 
-    onFileSelectedImage(event: any) {
-      const file: File = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          this.imageSelectedFileUrl = reader.result;
-          this.addMoreTopicForm.patchValue({
-            image: file
-          });
-        };
-      }
-    }
-
+  
     openPopup() {
       this.displayStyle = "block";
     }
@@ -169,9 +170,6 @@ export class DescriptionComponent implements OnInit {
       });
     }
     
- 
-  
-
 
     getAllTopics(tittle: string, technology:string) {
       this.isLoading = true;

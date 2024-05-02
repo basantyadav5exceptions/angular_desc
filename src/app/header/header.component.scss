@@ -39,6 +39,7 @@ width: 60%;
 .user-image{
   border-radius: 50%;
   border: 1px solid;
+  margin-left: 10px;
 }
 
 .addButton{
@@ -103,4 +104,58 @@ width: 60%;
 .input-field input::placeholder {
   color: #aaa;
   font-weight: 500;
+}
+
+.modal{
+  .modal-dialog{
+    .modal-content{
+     .modal-body{
+      a{
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .paragraph-topic{
+        background-color: #e2e2e2;
+        padding: 5px;
+      }
+     }
+    }
+  }
+}
+
+.category-desc-color{
+  color: rgb(53, 52, 52);
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+
+.tittle-desc-color{
+  color: #686666;
+}
+
+.topic-image-desc{
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.fa-bell{
+  color: #e2e2e2;
+}
+
+sup{
+  color: white;
+}
+.modal-content{
+  // height: 300px;
+  overflow-y: auto
+}
+
+.notification-icon{
+  padding: 3px;
+  background-color: #d55a5a;
+  border-radius: 50%;
+}
+
+.notification-icon:hover .fa-bell {
+  color: red;
 }

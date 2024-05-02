@@ -107,4 +107,10 @@ export class AuthServicesService {
   shareTopicToUsersByEmail(payload :any): Observable<any> {
     return this.http.post<any>(`${this.url}/send-topic-on-email`, payload);
   }
+  getNotifications(tpPoster_userId : any, seenTopicBy_userId:any): Observable<any> {
+    return this.http.get<any>(`${this.url}/get-all-notification?seenTopicBy_userId=${seenTopicBy_userId}&tpPoster_userId=${tpPoster_userId}`);
+  }
+  updateNotificationByTopicId(payload : any): Observable<any> {
+    return this.http.patch<any>(`${this.url}/update-notification-topics`, payload);
+  }
 }

@@ -18,9 +18,10 @@ video{
 
 .topic-desc{
     padding: 10px;
-    box-shadow: 0px 11px 27px -17px;
+    // box-shadow: 0px 11px 27px -17px;
     margin-bottom: 3rem;
     border-radius: 5px;
+    width: 600px;
 }
 
 .topic-tittle{
@@ -53,14 +54,18 @@ video{
     margin-bottom: 10px;
     padding: 5px;
 }
-.user-name{
-    font-size: 18px;
+.user-name, .auth-name{
+    font-size: 15px;
     font-weight: 500;
+}
+
+.user-comment_desc{
+    font-size: 14px;
 }
 
 .form-data{
     background-color: #ededed;
-    width: 48%;
+    width: 100%;
     padding: 5px;
     margin-top: 10px;
     border-radius: 10px;
@@ -92,33 +97,25 @@ textarea.form-control {
     background-color: #5995fd;
   }
 
-.img-thumbnail{
-    height: 300px;
-    width: 55%
-}
+
 
 .like-share{
-    gap: 23%;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .form-data-ans{
     background-color: #ededed;
-    width: 34%;
+    width: 76%;
     padding: 5px;
     margin-top: 10px;
     border-radius: 10px;
-    margin-left: 14%;
+    margin-left: 20%;
 }
 
 .answer{
     width: fit-content;
 }
-
-
-.auth-name{
-    font-weight: 600;
-}
-
 
 
 .total-comments{
@@ -127,14 +124,14 @@ textarea.form-control {
     font-weight: 500;
 }
 
-// .like-icon :hover, .comment-icon :hover, .share-icon :hover{
-//     // color: white;
-//     background-color: rgb(245, 44, 77);
-//     border-radius: 10px;
-// }
+.share-icon:hover .social-icon , .like-icon:hover .social-icon, .comment-icon:hover .social-icon{
+    color: #0d60f0;
+  }
+
 
 .social-icon{
    margin-right: 3px;
+   cursor: pointer;
 }
 
 .blue-icon {
@@ -144,10 +141,6 @@ textarea.form-control {
   .black-icon {
     color: #787878;
   }
-  .fa-comment{
-    color: #787878;
-  }
-
 
 .email-item {
     display: flex;

@@ -1,6 +1,7 @@
 
 <app-header></app-header>
 <div class="description-page">
+  <div class="descriptions-detail-section">
   <div class="topic-name d-flex justify-content-end align-items-center">
     <div class="add-topic-btn">
       <button type="button" class="addMoreBtn btn" (click)="openPopup()">Add Topic</button>
@@ -48,19 +49,19 @@
                 </div>
               </div>
 
-              <div class="select-profile d-flex justify-content-between align-items-center">
-                <span>Select Image</span>
+              <div class="select-profile input-field d-flex justify-content-between align-items-center">
+                <span class="select-profile-text">Select Image</span>
                 <a href="javascript:void(0)" (click)="onSelectImageClick()">
                   <img *ngIf="imageSelectedFileUrl" class="profile-image" [src]="imageSelectedFileUrl" alt="Selected Image" />
-                  <img *ngIf="!imageSelectedFileUrl" class="profile-image" src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="Placeholder" />
+                  <img *ngIf="!imageSelectedFileUrl" class="profile-image" src="assets/images/default-image.jpg" alt="Placeholder" />
                 </a>
-                <input type="file" (change)="onFileSelectedImage($event)" accept="image/*" id="imageFileInput" style="display: none;">
+                <input type="file" (change)="onFileSelectedImage($event)" accept="image/*" id="imageFileInputValue" style="display: none;">
               </div>
 
               <div class="select-profile d-flex justify-content-between align-items-center" (click)="onSelectVideoClick()">
                 <span>Select Video</span>
                 <a href="javascript:void(0)" >
-                  <video *ngIf="!videoSelectedFileUrl" width="40px" height="30px" class="profile-video" controls>
+                  <video *ngIf="!videoSelectedFileUrl" width="30px" height="25px" class="profile-video" controls>
                     <source src="" type="video/mp4">
                     Your browser does not support the video tag.
                   </video>
@@ -75,6 +76,7 @@
             </div>
           </div>
           <div class="modal-footer">
+            <div class="custom-spinner align-items-center" *ngIf="isLoading"></div>
             <button type="button" class="btn addButton" (click)="addTopic()">Add</button>
           </div>
         </div>
@@ -111,5 +113,5 @@
   <div *ngIf="hasError" class=" d-flex justify-content-center align-items-center">
     <p class="align-items-center">{{ this.errorMessage }}</p>
   </div>
-  
+</div>
 </div>

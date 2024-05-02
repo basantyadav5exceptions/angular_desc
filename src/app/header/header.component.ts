@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthServicesService } from '../service/auth-services.service';
 import { FormControl, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -15,17 +14,22 @@ export class HeaderComponent implements OnInit {
   imageSelectedFileUrl?: string | ArrayBuffer | null = null;
   userDetails?:string | null
   userImage:string=''
+  topicId:any;
   @ViewChild('fileInput') fileInput: any;
   selectedFile?: Blob;
   selectedFileUrl?: string;
   isLoading:boolean = false;
   getEventValue = ''
-  getTopics:any;
-  displayStyle:any;
+  getTopics?:string;
+  displayStyle?:string;
+  displayStyleNotification?:string;
   imageFile:any;
   userId?:number;
   userName?:string;
   searchBarHide:boolean=false
+  totalNotification:any;
+  hasError: boolean = false;
+  errorMessage:string=''
 
   searchTopicByTittleForm = new FormGroup({
     tittle: new FormControl('')
@@ -40,7 +44,8 @@ export class HeaderComponent implements OnInit {
     private router : Router,
     private authService : AuthServicesService,
     private cookieService: CookieService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private activeRoute: ActivatedRoute,
   ) { 
     
     this.router.events.subscribe(event => {
@@ -56,6 +61,12 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.getNotifications();
+
+    this.activeRoute.params.subscribe(params => {
+      this.topicId = params['id']; 
+    });
+
     this.userDetails = localStorage.getItem('userInfo');
     const userInfo = this.userDetails ? JSON.parse(this.userDetails) : null;
     if(userInfo){
@@ -68,22 +79,16 @@ export class HeaderComponent implements OnInit {
       name: this.userName,
       image:this.userImage
     });
-
-   
-
   }
-
- 
 
 
   onSelectImageClick() {
-    const imageFileInput = document.getElementById('imageFileInput') as HTMLInputElement;
+    const imageFileInput = document.getElementById('videoFileInputValue') as HTMLInputElement;
     if (imageFileInput) {
       imageFileInput.click();
     }
   }
   
-
   onFileSelectedImage(event: any) {
     const file: File = event.target.files[0];
     if (file) {
@@ -127,13 +132,11 @@ export class HeaderComponent implements OnInit {
     });
   }
   
-  
-
-  closePopup() {
-    this.displayStyle = "none";
-  }
 
   openPopup() {
+    this.displayStyle = "block";
+  }
+  openUserProfile() {
     this.displayStyle = "block";
   }
   
@@ -152,6 +155,69 @@ export class HeaderComponent implements OnInit {
     const tittle : any = this.searchTopicByTittleForm.value.tittle;
     this.authService.setTittle(tittle);
     };
+
+    getListOfNotification(){
+        this.displayStyleNotification = "block";
+    }
+
+    closePopup() {
+      this.displayStyle = "none";
+    }
+    closeNotificationModal() {
+      this.displayStyleNotification = "none";
+    }
+
+    updateNotifications(topicId:any){
+     const payload = {
+      noti_tpId : topicId,
+      seenTopicBy_userId : this.userId
+     }
+     this.isLoading = true;
+     this.authService.updateNotificationByTopicId(payload).subscribe({
+       next: (response) => {
+         this.getNotifications();
+         this.closePopup();
+         this.router.navigate(['/descriptions-details', payload.noti_tpId])
+         this.hasError = false;
+         this.isLoading = false;
+       },
+  
+       error: (error) => {
+         // this.toastr.error(error.error.message);
+         this.hasError = true;
+         this.isLoading = false;
+       },
+     });
+     
+    }
+
+
+    getNotifications() {
+      this.userDetails = localStorage.getItem('userInfo');
+      const userInfo = this.userDetails ? JSON.parse(this.userDetails) : null;
+      if(userInfo){
+        this.userId = userInfo.data.id;
+       }
+      const seenTopicBy_userId = this.userId
+      const tpPoster_userId = this.userId
+      this.isLoading = true;
+      this.authService.getNotifications(seenTopicBy_userId, tpPoster_userId).subscribe({
+        next: (response) => {
+          this.totalNotification = response.map((topic: any) => ({
+            ...topic,
+            image: topic.image ? `http://localhost:3000/files${topic.image.split('files')[1].replace(/\\/g, '/')}` : null
+        }));
+        this.hasError = false;
+            this.isLoading = false;
+        },
+    
+        error: (error) => {
+          this.errorMessage = error.error.message;
+          this.hasError = true;
+          this.isLoading = false;
+        },
+      });
+    }
 }
 
 

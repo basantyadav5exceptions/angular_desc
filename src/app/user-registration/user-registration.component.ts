@@ -37,6 +37,8 @@ export class UserRegistrationComponent implements OnInit {
 
   onSelectImageClick() {
     const imageFileInput = document.getElementById('imageFileInput') as HTMLInputElement;
+    console.log("imageFileInput", imageFileInput);
+    
     if (imageFileInput) {
       imageFileInput.click();
     }

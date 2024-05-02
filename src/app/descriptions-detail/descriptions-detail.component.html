@@ -1,130 +1,137 @@
 
 <app-header></app-header>
-<div class="description-details">
-  <div class="d-flex justify-content-center mb-2">
+<div class="description-details d-flex justify-content-center">
+  <!-- <div class="d-flex justify-content-center mb-2">
     <div class="custom-spinner" *ngIf="isLoading"></div>
-  </div>
+  </div> -->
   <div class="topic-desc" *ngFor="let topic of getTopicsData">
     <div class="topic-tittle d-flex justify-content-start">
       <span>{{ topic.tittle }}</span>
     </div>
-    <div class="desc-content d-flex justify-content-center">
+    <div class="desc-content">
       <p>{{ topic.description }}</p>
     </div>
-    <div class="desc-image d-flex justify-content-center mb-2">
-      <img height="150px" width="50%" class="img-fluid img-thumbnail" [src]="topic.image" alt="Image">
+    <div class="desc-image mb-2">
+      <img class="img-fluid img-thumbnail" [src]="topic.image" alt="Image">
     </div>
-    <div class="desc-video d-flex justify-content-center mb-2">
-      <video height="300px" width="55%" controls (click)="toggleVideo()" id="videoPlayer">
+    <div class="desc-video mb-2">
+      <video height="325px"  controls (click)="toggleVideo()" id="videoPlayer">
         <source [src]="topic.video" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
-    <div class="d-flex justify-content-center like-share">
+    <div class="d-flex justify-content-between like-share">
       <div class="like-icon" (click)="createUpdatelikeUnlike()">
         <i class="social-icon fa fa-thumbs-up" [ngClass]="{'black-icon': isLiked, 'blue-icon': !isLiked}"></i>
         <span class="total-comments">{{this.getLikeList.length}}</span>
       </div>
       <div class="comment-icon" (click)="toggleCommentSection()">
-        <i class="social-icon fa fa-comment"></i>
-        <span class="total-comments">{{this.totalCommentAndReply}}</span>
+        <i class="social-icon fa fa-comment" [ngClass]="{'blue-icon': isCommentShow, 'black-icon': !isCommentShow}"></i>
+        <span class="total-comments">{{this.totalCommentAndReply !== 0 ? this.totalCommentAndReply : ''}}</span>
+
       </div>
       <div class="share-icon" (click)="getListOfUser()">
         <i class="social-icon bi bi-send-arrow-up"></i>
       </div>
     </div>
-    <br>
-  </div>
-
-  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Select users to share topic</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closePopup()">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="" [formGroup]="shareTopicForm">
-            <div class="email-item" *ngFor="let user of getUserEmailData">
-              <div class="email">{{ user.name }}</div>
-              <div class="checkbox">
-                <input type="checkbox" [value]="user.email" (change)="onChangeCheckBoxValue($event)">
+    <div class="">
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Select users to share topic</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closePopup()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="" [formGroup]="shareTopicForm">
+              <div class="email-item" *ngFor="let user of getUserEmailData">
+                <div class="email">{{ user.name }}</div>
+                <div class="checkbox">
+                  <input type="checkbox" [value]="user.email" (change)="onChangeCheckBoxValue($event)">
+                </div>
               </div>
-            </div>
-          </form>
-        </div>
-        <div class="d-flex justify-content-center mb-2">
-          <div class="custom-spinner" *ngIf="isLoading"></div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn addButton" (click)="shareTopicToUsers()">Share</button>
+            </form>
+          </div>
+          <div class="d-flex justify-content-center mb-2">
+            <div class="custom-spinner" *ngIf="isLoading"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn addButton" (click)="shareTopicToUsers()">Share</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <form action="" [formGroup]="commentOnTopicForm">
-    <div class="comment-text">
-      <label for="">Comments</label>
-    </div>
-    <div class="comment-area-profile d-flex justify-content-start">
-      <div class="comment">
-        <textarea type="textarea" formControlName="comment_desc" class="form-control form-control-sm" rows="1" cols="75"
-          placeholder="Comment here..."></textarea>
-      </div>
-      <div class="sendButton">
-        <button type="button" class="btn btn-sm" (click)="createCommentOnTopic()">Send</button>
-      </div>
-    </div>
-  </form>
-  <div *ngIf="showHideCommentSection" class="comment-section">
-    <div class="get-comment-on-topic" *ngFor="let comment of getCommentData">
-      <div class="list-of-comment d-flex justify-content-start align-items-center">
-        <div class="form-data">
-          <span for="" class="user-name">{{ comment.user_name }}</span>
-          <div class="save-comment-desc">
-            <span>{{ comment.comment_desc }}</span>
-          </div>
+    
+    <div *ngIf="showHideCommentSection" class="comment-section">
+      <form action="" [formGroup]="commentOnTopicForm">
+        <div class="comment-text">
+          <label for="">Comments</label>
         </div>
-        <div class="user-image-icon">
-          <img height="55px" width="55px" class="user-image" [src]="comment.user_image" alt="">
-        </div>
-      </div>
-
-      <form action="" [formGroup]="answerOfComment">
-        <div class="given-answer-comments">
-          <div class="reply-of-comments mt-2 mb-2">
-            <a class="reply-label">like</a>
-            <a class="reply-label">|</a>
-            <a class="reply-label" (click)="toggleTextArea(comment.id)">Reply</a>
+        <div class="comment-area-profile d-flex justify-content-start">
+          <div class="comment">
+            <textarea type="textarea" formControlName="comment_desc" class="form-control form-control-sm" rows="1" cols="75"
+              placeholder="Comment here..."></textarea>
           </div>
-          <div class="answer d-flex justify-content-between" *ngIf="showHideTextInput === comment.id">
-            <div class="answer-text-area">
-              <textarea type="textarea" formControlName="answer_desc"
-                class="form-control form-control-sm answer-text-input" rows="1" cols="75" placeholder="Reply here..."></textarea>
-            </div>
-            <div class="sendButton">
-              <button type="button" class="btn btn-sm" (click)="createReplyOnCommets(comment.id)">Send</button>
-            </div>
-          </div>
-          <div class="answer-list d-flex justify-content-start align-items-center" *ngFor="let reply of comment.answer_data">
-            <div class="form-data-ans" >
-              <div class="auth">
-                <span class="auth-name">{{ reply.user_name }}</span>
-              </div>
-              <div class="reply-desc">
-                <span>{{ reply.answer_desc }}</span>
-              </div>
-              
-            </div>
-            <div class="user-image-icon">
-              <img height="55px" width="55px" class="user-image" [src]="reply.user_image" alt="">
-            </div>
+          <div class="sendButton">
+            <button type="button" class="btn btn-sm" (click)="createCommentOnTopic()">Send</button>
           </div>
         </div>
       </form>
+      <div class="get-comment-on-topic" *ngFor="let comment of getCommentData">
+        <div class="list-of-comment d-flex justify-content-start align-items-center">
+          <div class="form-data">
+            <span for="" class="user-name">{{ comment.user_name }}</span>
+            <div class="save-comment-desc">
+              <span class="user-comment_desc">{{ comment.comment_desc }}</span>
+            </div>
+          </div>
+          <div class="user-image-icon">
+            <img height="45px" width="45px" class="user-image" [src]="comment.user_image" alt="">
+          </div>
+        </div>
+  
+        <form action="" [formGroup]="answerOfComment">
+          <div class="given-answer-comments">
+            <div class="reply-of-comments mt-2 mb-2">
+              <a class="reply-label">like</a>
+              <a class="reply-label">|</a>
+              <a class="reply-label" (click)="toggleTextArea(comment.id)">Reply</a>
+            </div>
+            <div class="answer d-flex justify-content-between" *ngIf="showHideTextInput === comment.id">
+              <div class="answer-text-area">
+                <textarea type="textarea" formControlName="answer_desc"
+                  class="form-control form-control-sm answer-text-input" rows="1" cols="75" placeholder="Reply here..."></textarea>
+              </div>
+              <div class="sendButton">
+                <button type="button" class="btn btn-sm" (click)="createReplyOnCommets(comment.id)">Send</button>
+              </div>
+            </div>
+            <div class="answer-list d-flex justify-content-start align-items-center" *ngFor="let reply of comment.answer_data">
+              <div class="form-data-ans" >
+                <div class="auth">
+                  <span class="auth-name">{{ reply.user_name }}</span>
+                </div>
+                <div class="reply-desc">
+                  <span class="user-comment_desc">{{ reply.answer_desc }}</span>
+                </div>
+                
+              </div>
+              <div class="user-image-icon">
+                <img height="45px" width="45px" class="user-image" [src]="reply.user_image" alt="">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-
+    </div>
+    <br>
   </div>
+
+
 </div>
+
+
+
