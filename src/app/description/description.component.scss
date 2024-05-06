@@ -11,35 +11,35 @@
     box-shadow: 0px 7px 14px -12px;
     margin-bottom: 3rem;
     border-radius: 5px;
-    width: auto; /* Set width to auto for responsiveness */
-    height: auto; /* Adjust height based on content */
+    width: auto; 
+    height: auto; 
     overflow: hidden;
     transition: height 0.3s ease-in-out;
 }
 
 .read-more-btn {
-  margin-top: 10px; /* Add some space between description and button */
+  margin-top: 10px; 
 }
 
 @media screen and (max-width: 320px) {
   .read-more-btn {
-      justify-content: center; /* Center align the button on small screens */
+      justify-content: center;
   }
 }
 @media screen and (max-width: 320px) {
   .description-page {
-      margin-top: 15px; /* Center align the button on small screens */
+      margin-top: 15px; 
   }
 }
 @media screen and (max-width: 577px) {
   .description-page {
-      margin-top: 15px; /* Center align the button on small screens */
+      margin-top: 15px;
   }
 }
 
 @media screen and (max-width: 570px) {
   .topic-desc {
-      width: 100%; /* Allow responsiveness up to 570px */
+      width: 100%; 
   }
 }
 
@@ -65,6 +65,7 @@
   padding-block: 0.8rem;
   background-color: #eaeaea;
   border-radius: 10px;
+  border: none;
   padding-left: 10px;
 }
 
@@ -78,23 +79,23 @@
 }
   .readmore{
     border-radius: 10px;
-    border: 1px solid #5995fd;
+    border: 1px solid #a7a7a7;
   }
 
    .addMoreBtn{
     cursor: pointer;
     border-radius: 10px;
-    border: 1px solid #1e68e7;
+    border: 1px solid #a7a7a7;
     background-color: white;
   }
 
   .add-topic-btn :hover{
-    color: aliceblue !important;
-    background-color: #5995fd;
+    color: rgb(70, 70, 70) !important;
+    background-color: #d4d5d6;
   }
   .readmore:hover{
-    color: aliceblue !important;
-    background-color: #5995fd;
+    color: rgb(70, 70, 70) !important;
+    background-color: #d4d5d6;
   }
 
   
@@ -192,8 +193,9 @@ margin-left: 3rem;
 }
 
 .addButton{
-  background-color: #4982cb;
-  color: aliceblue;
+  background-color: #e9ecef;
+  color: black;
+  border: 1px solid #c5c5c5;
 }
 .addButton :hover{
   background-color: #051b36 !important;

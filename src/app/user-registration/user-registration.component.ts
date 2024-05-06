@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthServicesService } from '../service/auth-services.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormControl, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-registration',
@@ -15,9 +15,9 @@ export class UserRegistrationComponent implements OnInit {
   imageSelectedFileUrl?: string | ArrayBuffer | null = null;
   selectedFile?: Blob;
   selectedFileUrl?: string;
-  isLoading:boolean = false;
-  imageFile:any;
-  password:boolean = false;
+  isLoading: boolean = false;
+  imageFile: any;
+  password: boolean = false;
 
   registrationForm = new UntypedFormGroup({
     name: new FormControl('', Validators.required),
@@ -25,25 +25,22 @@ export class UserRegistrationComponent implements OnInit {
     password: new FormControl('', Validators.required),
     image: new FormControl('', Validators.required),
   })
-  
+
   constructor(
     private router: Router,
-    private authService : AuthServicesService,
-    private toastr : ToastrService
-    ) { }
+    private authService: AuthServicesService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
   }
 
   onSelectImageClick() {
     const imageFileInput = document.getElementById('imageFileInput') as HTMLInputElement;
-    console.log("imageFileInput", imageFileInput);
-    
     if (imageFileInput) {
       imageFileInput.click();
     }
   }
-  
 
   onFileSelectedImage(event: any) {
     const file: File = event.target.files[0];
@@ -58,8 +55,6 @@ export class UserRegistrationComponent implements OnInit {
       };
     }
   }
-  
-  
 
   userRegister() {
     if (this.registrationForm.invalid) {
@@ -70,20 +65,14 @@ export class UserRegistrationComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-  
-  
-    // Create a FormData object and append data to it
     const formData = new FormData();
-
     this.imageFile = this.registrationForm.get('image')?.value as Blob | string;
-    formData.append('image', this.imageFile);
 
-      formData.append('name', this.registrationForm.value.name as string);
-      formData.append('email', this.registrationForm.value.email as string);
-      formData.append('password', this.registrationForm.value.password as string);
-    
-      
-    // Call the authService method to register the user
+    formData.append('image', this.imageFile);
+    formData.append('name', this.registrationForm.value.name as string);
+    formData.append('email', this.registrationForm.value.email as string);
+    formData.append('password', this.registrationForm.value.password as string);
+
     this.authService.userRegister(formData).subscribe({
       next: (response) => {
         this.toastr.success(response.message);
@@ -97,9 +86,6 @@ export class UserRegistrationComponent implements OnInit {
       },
     });
   }
-  
-
-
 
 }
 

@@ -22,6 +22,7 @@ export class DescriptionsDetailComponent implements OnInit {
   showHideCommentSection:boolean = false
   isLiked:boolean = false
   isCommentShow:boolean = false
+  isShareShow:boolean = false
   createCommentData : Array<any> = []
   getAnswerData : Array<any> = []
   getCommentData : Array<any> = []
@@ -149,7 +150,7 @@ export class DescriptionsDetailComponent implements OnInit {
   }
 
   createUpdatelikeUnlike(){
-    this.isLiked = !this.isLiked;
+
     const payload = {
       user_id: this.userId,
       tp_id: this.topicId
@@ -159,6 +160,7 @@ export class DescriptionsDetailComponent implements OnInit {
       next: (response) => {
         this.likeUnlikeData = response;
         this.getLikeUnlikeOnTopic(this.topicId);
+        this.isLiked = !this.isLiked;
       },
   
       error: (error) => {
@@ -299,20 +301,25 @@ export class DescriptionsDetailComponent implements OnInit {
     this.videoplayer.play();
 }
 
-getListOfUser(){
-  this.displayStyle = "block";
-  this.isLoading = true;
-  const userId = this.userId
+getListOfUser() {
+  this.isShareShow = !this.isShareShow;
+  if (this.isShareShow) {
+    this.displayStyle = "block"; // Show modal
+    this.isLoading = true;
+    const userId = this.userId;
     this.authService.getListOfUser(userId).subscribe({
       next: (response) => {
-        this.getUserEmailData = response
-          this.isLoading = false;
+        this.getUserEmailData = response;
+        this.isLoading = false;
       },
-  
       error: (error) => {
         this.isLoading = false;
       },
     });
+  } else {
+    this.displayStyle = "none"; // Hide modal
+  }
 }
+
 
 }

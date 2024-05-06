@@ -1,6 +1,10 @@
-// .full-width{
-//     width: 100%;
-//   }
-//   .main-content-page{
-//     width: 100%;
-//   }
+.main-content {
+    padding-top: 60px; /* Adjust this value according to your header height */
+  }
+  
+  .header-fixed .main-content {
+    display: none;
+  }
+
+ 
+  

@@ -1,24 +1,63 @@
 .header{
   position: fixed;
-  width: 82%;
+  width: 100%;
+  // padding: 10px;
+  background-color: #e9ecef;
+  z-index: 1000; 
+  margin: 0;
   padding: 10px;
-  background-color: #5995fd;
+  right: 0;
+}
+
+@media (min-width: 320px) {
+  .search-bar{
+    margin-left: 6% !important; 
+    width: 57% !important;
+}
+.fa-search{
+    margin-left: 60% !important;
+}
+.header-form{
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+}
+
+.category {
+  padding: 2px;
+  color: black;
+    font-size: 20px;
+    font-weight: 700;
+}
+.header-form{
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .search-bar{
-width: 60%;
+width: 50%;
+margin-left: 20%;
+position: relative;
 }
 .search-input{
-  padding: 5px 50px 5px 15px;;
+  padding: 5px 0px 5px 15px;
   border-radius: 20px;
   width: -webkit-fill-available;
+  color: black;
 }
+
+@media (min-width: 320px) {
+  .search-input {
+    width: calc(100% - 30px); /* Adjust as needed */
+  }
+}
+
 .fa-search{
-  font-size: 20px;
+    font-size: 18px;
     position: absolute;
-    margin-left: 56%;
-    margin-top: 8px;
-    color: #5995fd;
+    margin-left: 90% !important;
+    margin-top: 7px;
+    color: #a8a6a6;
 }
 
 .bi-list{
@@ -27,7 +66,14 @@ width: 60%;
 
 #dropdown-basic{
   padding: 5px;
+  margin-top: -1px;
+  margin-right: 5px;
 }
+
+hr.new1 {
+  border-top: 1px solid #a8a6a6;
+}
+
 .pointer{
   cursor: pointer;
 }
@@ -43,14 +89,13 @@ width: 60%;
 }
 
 .addButton{
-  background-color: #4982cb;
-  color: aliceblue;
+  background-color: #e9ecef;
+  color: black;
+  border: 1px solid #c5c5c5;
 }
-.addButton :hover{
-  background-color: #051b36 !important;
-  color: aliceblue;
-  font-weight: 600;
-}
+// .addButton :hover{
+//   background-color: red !important;
+// }
 .profile-image {
   width: 30px !important;
   height: 30px !important;
@@ -101,14 +146,31 @@ width: 60%;
   color: #686666;
 }
 
+.extra-arrow {
+  background: #ffffff;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  top: -12px;
+  right: 75px;
+  transform: rotate(45deg);
+  border-top: solid 1px #ccc;
+  border-left: solid 1px #cccc;
+}
 .input-field input::placeholder {
   color: #aaa;
   font-weight: 500;
 }
-
+.notification-text{
+  font-size: 16px;
+  font-weight: 500;
+}
 .modal{
   .modal-dialog{
     .modal-content{
+      .modal-footer :hover{
+        background-color: #c4c4c5;
+    }
      .modal-body{
       a{
         text-decoration: none;
@@ -139,11 +201,13 @@ width: 60%;
 }
 
 .fa-bell{
-  color: #e2e2e2;
+  color:#686666;
 }
-
+.Technology{
+  color: #686666;
+}
 sup{
-  color: white;
+  color:#686666;
 }
 .modal-content{
   // height: 300px;
@@ -152,10 +216,10 @@ sup{
 
 .notification-icon{
   padding: 3px;
-  background-color: #d55a5a;
+  background-color: #dbdbdb;
   border-radius: 50%;
 }
 
 .notification-icon:hover .fa-bell {
-  color: red;
+  color: #999696;
 }

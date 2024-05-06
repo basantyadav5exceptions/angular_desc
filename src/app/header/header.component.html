@@ -1,58 +1,63 @@
 <div class="header">
   <form action="" [formGroup]="searchTopicByTittleForm">
-   <div class="d-flex justify-content-between">
-     <a class="desc-logo">
-      <!-- <i class="fa fa-bell" aria-hidden="true" (click)="getListOfNotification()"></i>
-      <span>{{totalNotification?.length}}</span> -->
-     </a>
-     <div  class="search-bar d-flex justify-content-between">
-       <input type="text" *ngIf="searchBarHide" (keyup)="searchTopicByTittle()" formControlName="tittle" class="search-input" placeholder="Search">
-       <i class="fa fa-search"></i>
-     </div>
-     <div class="login-user-profile" dropdown>
-      <a class="notification-icon">
-        <i class="fa fa-bell" aria-hidden="true" (click)="getListOfNotification()"><sup class="">{{totalNotification?.length}}</sup></i>
-       </a>
-      <a id="button-basic" dropdownToggle type="button" placement="bottom right">
-        <img class="user-image" width="35px" height="35px" [src]="userImage" alt="">
-      </a>
-      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
-      role="menu" aria-labelledby="button-basic">
-      <li role="menuitem"><a class="dropdown-item pointer" (click)="openUserProfile()"><i class="bi bi-person"></i>Profile</a></li>
-      <li role="menuitem"><a class="dropdown-item pointer" (click)="logoutUser()"> <i class="bi bi-box-arrow-right"></i>Signout</a></li>
-      </ul>
-    </div>
-
-      <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyleNotification}">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="d-flex justify-content-end">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeNotificationModal()">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body" *ngFor="let tittleNotiFication of totalNotification">
+    <div class="header-form d-flex justify-content-between">
+      <div class="category">
+        <a [routerLink]="['/descriptions']">
+          <img class="topic-img" width="30px" height="30px" src="assets/images/tech-logo1.png" alt="img" />
+        </a>
+      </div>
+      <div class="search-bar d-flex justify-content-between" *ngIf="!searchBarHide">
+        <input type="text"  (keyup)="searchTopicByTittle()" formControlName="tittle"
+          class="search-input form-control-sm" placeholder="Search">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="notification-and-user-profile">
+        <span class="notification" dropdown>
+          <a class="notification-icon" id="button-basic" dropdownToggle type="button" placement="bottom right">
+            <i class="fa fa-bell" aria-hidden="true" (click)="getListOfNotification()"><sup
+                class="">{{totalNotification?.length}}</sup></i>
+          </a>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-basic">
+             <span class="notification-text">Notifications</span>
+             <div class="extra-arrow"></div>
+            <div class="Notifications-list" *ngFor="let tittleNotiFication of totalNotification">
               <div class="paragraph-topic" (click)="updateNotifications(tittleNotiFication.noti_tpId)">
-               <a>
-              <div class="d-flex justify-content-start">
-                <div class="topic-image-desc">
-                  <img class="topic-img" width="45px" [src]="tittleNotiFication.image" alt="Placeholder" />
-                </div>
-                 <div class="topic-category-tittle">
-                   <p class="category-desc-color">{{tittleNotiFication.category}}</p>
-                   <p class="tittle-desc-color">{{tittleNotiFication.tittle}}</p>
-                 </div>
+                <hr class="new1">
+                <a>
+                  <div class="d-flex justify-content-start">
+                    <div class="topic-image-desc">
+                      <img class="topic-img" width="45px" height="40px" [src]="tittleNotiFication.image"
+                        alt="Placeholder" />
+                    </div>
+                    <div class="topic-category-tittle mt-1">
+                      <p class="category-desc-color">{{tittleNotiFication.category}}</p>
+                      <p class="tittle-desc-color">{{tittleNotiFication.tittle}}</p>
+                    </div>
+                  </div>
+                </a>
               </div>
-              </a>
             </div>
-            </div>
-            <div class="modal-body">
+            <div class="Notifications-not found">
               <div *ngIf="hasError" class=" d-flex justify-content-center align-items-center">
                 <p class="align-items-center">{{ this.errorMessage }}</p>
               </div>
             </div>
-          </div>
-        </div>
+          </ul>
+        </span>
+
+        <span class="login-user-profile" dropdown>
+          <a id="button-basic" dropdownToggle type="button" placement="bottom right">
+            <img class="user-image" width="35px" height="35px" [src]="userImage" alt="">
+          </a>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-basic">
+            <li role="menuitem"><a class="dropdown-item pointer" (click)="openUserProfile()"><i
+                  class="bi bi-person"></i>Profile</a></li>
+            <li role="menuitem"><a class="dropdown-item pointer" (click)="logoutUser()"> <i
+                  class="bi bi-box-arrow-right"></i>Signout</a></li>
+          </ul>
+        </span>
       </div>
       <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
         <div class="modal-dialog" role="document">
@@ -71,10 +76,13 @@
                 <div class="select-profile input-field d-flex justify-content-between align-items-center">
                   <span class="select-profile-text">Select Profile</span>
                   <a href="javascript:void(0)" (click)="onSelectImageClick()">
-                    <img *ngIf="imageSelectedFileUrl" class="profile-image" [src]="imageSelectedFileUrl" alt="Selected Image" />
-                    <img *ngIf="!imageSelectedFileUrl" class="profile-image" src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="Placeholder" />
+                    <img *ngIf="imageSelectedFileUrl" class="profile-image" [src]="imageSelectedFileUrl"
+                      alt="Selected Image" />
+                    <img *ngIf="!imageSelectedFileUrl" class="profile-image"
+                      src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="Placeholder" />
                   </a>
-                  <input type="file" (change)="onFileSelectedImage($event)" accept="image/*" id="videoFileInputValue" style="display: none;">
+                  <input type="file" (change)="onFileSelectedImage($event)" accept="image/*" id="videoFileInputValue"
+                    style="display: none;">
                 </div>
               </form>
             </div>
@@ -84,10 +92,6 @@
           </div>
         </div>
       </div>
-
-     </div>
+    </div>
   </form>
-  </div>
-  
-
-  
+</div>

@@ -1,8 +1,6 @@
 .description-details{
     width: 100%;
-    overflow-y: auto;
     padding-left: 10px;
-    margin-bottom: 20px;
     margin-top: 4rem;
 }
 
@@ -10,18 +8,13 @@
     margin-top: 30px;
 }
 
-video{
-    border: 1px solid rgb(118, 119, 118);
-}
-
-
 
 .topic-desc{
     padding: 10px;
     // box-shadow: 0px 11px 27px -17px;
-    margin-bottom: 3rem;
     border-radius: 5px;
     width: 600px;
+ 
 }
 
 .topic-tittle{
@@ -41,7 +34,7 @@ video{
 .sendButton {
     color: white;
     border-radius: 10px;
-    border: 1px solid #5995fd;
+    border: 1px solid  #a1a1a1;;
     margin-left: 10px;
 }
 
@@ -94,7 +87,7 @@ textarea.form-control {
 }
 .sendButton:hover{
     color: aliceblue !important;
-    background-color: #5995fd;
+    background-color:  #c4c4c5;;
   }
 
 
@@ -120,22 +113,32 @@ textarea.form-control {
 
 .total-comments{
     font-size: 12px;
-    color: #5995fd;
+    color: #c4c4c5;
     font-weight: 500;
 }
 
 .share-icon:hover .social-icon , .like-icon:hover .social-icon, .comment-icon:hover .social-icon{
-    color: #0d60f0;
+    color: #969697;
   }
 
+  .mr-2{
+    font-size: 14px;
+  }
 
+.bi-circle-fill{
+    font-size: 8px;
+    margin-right: 5px;
+    margin-top: 2px;
+    color: #7c7c7c;
+}
 .social-icon{
    margin-right: 3px;
    cursor: pointer;
+   font-size: 18px;
 }
 
 .blue-icon {
-    color: #5995fd;
+    color: #c4c4c5;
   }
   
   .black-icon {
@@ -157,24 +160,30 @@ textarea.form-control {
 
 
 .modal{
+    position: relative;
   .modal-dialog{
     .modal-content{
-        width: 70%;
+        // width: 70%;
         .modal-footer{
             padding: 0;
         }
         .modal-header{
             padding: 0 7px 0 7px;
-
+        }
+        .modal-footer :hover{
+            background-color: #c4c4c5;
         }
     }
   }
 }
 
 .addButton{
-    background-color: #4982cb;
-    color: aliceblue;
+    background-color: white;
+    color: rgb(70, 69, 69);
+    border: 1px solid  #c4c4c5;
+    border-radius: 10px;
   }
+
   .addButton :hover{
     background-color: #051b36 !important;
     color: aliceblue;

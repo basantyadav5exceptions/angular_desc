@@ -1,42 +1,33 @@
-<div class="container">
-  <div class="forms-container">
-    <div class="signin-signup">
-      <form action="#" [formGroup]="userLoginForm" class="sign-in-form">
-        <h2 class="title">Sign in</h2>
-        <div class="input-field">
-          <i class="fas "></i>
-          <input type="email" formControlName="email" placeholder="email" />
-        </div>
-        <div class="input-field">
-          <i class="fas "></i>
-          <input type="{{ password ? 'text' : 'password' }}" formControlName="password" placeholder="Password" />
-          <span class="eye-show-hide-password"
-          (click)="password = !password">
+<section class="login-section">
+  <div class="container">
+    <div class="d-flex justify-content-center">
+      <span class="form-heading">Login Form</span>
+    </div>
+    <form action="#" [formGroup]="userLoginForm">
+      <div class="input-field">
+        <input type="text" class="form-control" formControlName="email" required>
+        <label>Email</label>
+      </div>
+      <div class="input-field">
+        <input class="pswrd" type="{{ password ? 'text' : 'password' }}" formControlName="password" class="form-control"
+          required>
+        <span class="eye-show-hide-password" (click)="password = !password">
           <i class="fa fa-eye-slash" *ngIf="!password" aria-hidden="true"></i>
           <i class="fa fa-eye" *ngIf="password" aria-hidden="true"></i>
         </span>
-        </div>
-       
-        <div class="d-flex justify-content-center mb-2">
-          <div class="custom-spinner" *ngIf="isLoading"></div>
-        </div>
-        <button class="btn solid" (click)="loginUser()">Login</button>
-      </form>
-
-    </div>
-  </div>
-
-  <div class="panels-container">
-    <div class="panel left-panel">
-      <div class="content">
-        <h3>New user ?</h3>
-        <p>
-          Don't have an account yet?
-        </p>
-        <a href="" class="signup-text" routerLink="/user-register">Sign Up</a>
+        <label>Password</label>
       </div>
-      <img src="img/log.svg" class="image" alt="" />
+      <div class="login-button-tag d-flex justify-content-center">
+        <button type="button" class="btn login-button" (click)="loginUser()">Login</button>
+      </div>
+    </form>
+    <div class="d-flex justify-content-center mb-2">
+      <div class="custom-spinner" *ngIf="isLoading"></div>
     </div>
-
+    <div class="d-flex justify-content-center">
+      <div class="signup">
+        Don't have an account yet? <a href="#" routerLink="/user-register">Sign up</a>
+      </div>
+    </div>
   </div>
-</div>
+</section>

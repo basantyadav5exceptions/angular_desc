@@ -30,6 +30,9 @@ export class HeaderComponent implements OnInit {
   totalNotification:any;
   hasError: boolean = false;
   errorMessage:string=''
+  notAllowed: Array<any> = [
+    'descriptions'
+  ]
 
   searchTopicByTittleForm = new FormGroup({
     tittle: new FormControl('')
@@ -50,14 +53,13 @@ export class HeaderComponent implements OnInit {
     
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.searchBarHide = this.notAllowed.includes(router.url.split('/')[1]);
+        const urlSegments = this.router.url.split('/');
+        const lastSegment = urlSegments[urlSegments.length - 1];
+        this.searchBarHide = !lastSegment.startsWith('descriptions');
       }
     });
   }
 
-  notAllowed: Array<any> = [
-    'descriptions'
-  ]
 
   ngOnInit(): void {
 
@@ -143,7 +145,6 @@ export class HeaderComponent implements OnInit {
   openFileInput() {
     this.fileInput.nativeElement.click();
   }
-
 
   logoutUser(){
     this.cookieService.delete('tp_link');
